@@ -35,6 +35,12 @@ public class Monstre {
     }
     
     public Monstre() {
+        this.ptVie = 100;
+        this.degAtt = 20;
+        this.ptPar = 1;
+        this.pageAtt = 1;
+        this.pagePar = 1;
+        this.pos = new Point2D(0,10);
     }
 
     public int getPtVie() {
