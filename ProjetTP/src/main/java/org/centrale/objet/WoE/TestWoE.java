@@ -11,6 +11,16 @@ package org.centrale.objet.WoE;
 public class TestWoE {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        World mondeTest = new World();
+        mondeTest.bugs.affiche();
+        mondeTest.peon.affiche();
+        mondeTest.robin.affiche();
+        
+        System.out.println("aleatoire");
+        mondeTest.creerMondeAlea();
+        
+        mondeTest.bugs.affiche();
+        mondeTest.peon.affiche();
+        mondeTest.robin.affiche();
     }
 }

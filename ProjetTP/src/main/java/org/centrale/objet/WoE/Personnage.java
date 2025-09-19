@@ -112,7 +112,6 @@ public class Personnage {
     {
         System.out.println("Affichage de " + nom);
         System.out.println("Nombre de points de vie actuels : " + ptVie);
-        System.out.println("Position :");
         pos.affiche();
     }
 }
