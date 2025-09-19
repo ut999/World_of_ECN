@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE;
+import java.util.Random;
 
 /**
  *
@@ -92,6 +93,10 @@ public class Monstre {
     }
     
     public void deplace() {
+        Random generateur = new Random();
+        int dx = generateur.nextInt(-1,1);
+        int dy = generateur.nextInt(-1,1);
+        this.pos.translate(dx, dy);
     }
     
     public void affiche() {
