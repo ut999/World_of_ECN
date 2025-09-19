@@ -53,7 +53,9 @@ public class Point2D {
         this.y = y + dy;
     }
     
-    public void affiche(int dx, int dy) {
-        System.out.println("Position :\nx : " + x + "\ny : " + y);
+    public void affiche() {
+        System.out.println(
+                "Position :\nx = " + x + 
+                "\ny : " + y);
     }
 }
