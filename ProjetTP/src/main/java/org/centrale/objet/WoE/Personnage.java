@@ -7,41 +7,53 @@ import java.util.Random;
 
 /**
  *
- * @author utaab
+ * @author Clément
  */
-public class Monstre {
+public class Personnage {
+    //attributes
+    private String nom;
     private int ptVie;
     private int degAtt;
     private int ptPar;
     private int pageAtt;
-    private int pagePar;
+    private int distAttMax;
     private Point2D pos;
 
-    public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
+    public Personnage() {
+        this.nom = "Pierre";
+        this.ptVie = 100;
+        this.degAtt = 10;
+        this.ptPar = 2;
+        this.pageAtt = 2;
+        this.distAttMax = 1;
+        this.pos = new Point2D();
+    }
+    public Personnage(Personnage p) {
+        this.nom = p.nom;
+        this.ptVie = p.ptVie;
+        this.degAtt = p.degAtt;
+        this.ptPar = p.ptPar;
+        this.pageAtt = p.pageAtt;
+        this.distAttMax = p.distAttMax;
+        this.pos = new Point2D(p.pos);
+    }
+
+    public Personnage(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, Point2D pos) {
+        this.nom = nom;
         this.ptVie = ptVie;
         this.degAtt = degAtt;
         this.ptPar = ptPar;
         this.pageAtt = pageAtt;
-        this.pagePar = pagePar;
+        this.distAttMax = distAttMax;
         this.pos = pos;
     }
-    
-    public Monstre(Monstre m) {
-        this.ptVie = m.ptVie;
-        this.degAtt = m.degAtt;
-        this.ptPar = m.ptPar;
-        this.pageAtt = m.pageAtt;
-        this.pagePar = m.pagePar;
-        this.pos = m.pos;
+
+    public String getNom() {
+        return nom;
     }
-    
-    public Monstre() {
-        this.ptVie = 100;
-        this.degAtt = 20;
-        this.ptPar = 1;
-        this.pageAtt = 1;
-        this.pagePar = 1;
-        this.pos = new Point2D(0,10);
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public int getPtVie() {
@@ -76,12 +88,12 @@ public class Monstre {
         this.pageAtt = pageAtt;
     }
 
-    public int getPagePar() {
-        return pagePar;
+    public int getDistAttMax() {
+        return distAttMax;
     }
 
-    public void setPagePar(int pagePar) {
-        this.pagePar = pagePar;
+    public void setDistAttMax(int distAttMax) {
+        this.distAttMax = distAttMax;
     }
 
     public Point2D getPos() {
@@ -99,13 +111,10 @@ public class Monstre {
         this.pos.translate(dx, dy);
     }
     
-    public void affiche() {
-        System.out.println(
-                "Monstre :\nptVie = " + this.ptVie +
-                "\ndegAtt = " + this.degAtt +
-                "\nptPar = " + this.ptPar +
-                "\npageAtt = " + this.pageAtt +
-                "\npagePar = " + this.pagePar);
+    public void affiche()
+    {
+        System.out.println("Affichage de " + nom);
+        System.out.println("Nombre de points de vie actuels : " + ptVie);
         pos.affiche();
     }
 }
