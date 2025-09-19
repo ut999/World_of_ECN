@@ -35,6 +35,12 @@ public class Monstre {
     }
     
     public Monstre() {
+        this.ptVie = 100;
+        this.degAtt = 20;
+        this.ptPar = 1;
+        this.pageAtt = 1;
+        this.pagePar = 1;
+        this.pos = new Point2D(0,10);
     }
 
     public int getPtVie() {
@@ -85,5 +91,16 @@ public class Monstre {
         this.pos = pos;
     }
     
+    public void deplace() {
+    }
     
+    public void affiche() {
+        System.out.println(
+                "Monstre :\nptVie = " + this.ptVie +
+                "\ndegAtt = " + this.degAtt +
+                "\nptPar = " + this.ptPar +
+                "\npageAtt = " + this.pageAtt +
+                "\npagePar = " + this.pagePar);
+        pos.affiche();
+    }
 }
