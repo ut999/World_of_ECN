@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE;
+import java.util.Random;
 
 /**
  *
@@ -103,9 +104,11 @@ public class Personnage {
         this.pos = pos;
     }
     
-    public void deplace()
-    {
-        pos.translate(1,0);
+    public void deplace() {
+        Random generateur = new Random();
+        int dx = generateur.nextInt(-1,2);
+        int dy = generateur.nextInt(-1,2);
+        this.pos.translate(dx, dy);
     }
     
     public void affiche()

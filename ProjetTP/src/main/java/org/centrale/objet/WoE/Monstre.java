@@ -94,8 +94,8 @@ public class Monstre {
     
     public void deplace() {
         Random generateur = new Random();
-        int dx = generateur.nextInt(-1,1);
-        int dy = generateur.nextInt(-1,1);
+        int dx = generateur.nextInt(-1,2);
+        int dy = generateur.nextInt(-1,2);
         this.pos.translate(dx, dy);
     }
     
