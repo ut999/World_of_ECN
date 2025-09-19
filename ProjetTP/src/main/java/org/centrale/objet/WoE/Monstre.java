@@ -85,5 +85,16 @@ public class Monstre {
         this.pos = pos;
     }
     
+    public void deplace() {
+    }
     
+    public void affiche() {
+        System.out.println(
+                "Monstre :\nptVie = " + this.ptVie +
+                "\ndegAtt = " + this.degAtt +
+                "\nptPar = " + this.ptPar +
+                "\npageAtt = " + this.pageAtt +
+                "\npagePar = " + this.pagePar);
+        pos.affiche();
+    }
 }
