@@ -56,6 +56,6 @@ public class Point2D {
     public void affiche() {
         System.out.println(
                 "Position :\nx = " + x + 
-                "\ny : " + y);
+                "\ny = " + y);
     }
 }
