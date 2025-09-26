@@ -58,4 +58,8 @@ public class Point2D {
                 "Position :\nx = " + x + 
                 "\ny : " + y);
     }
+    
+    public float distance(Point2D p) {
+        return 0;
+    }
 }

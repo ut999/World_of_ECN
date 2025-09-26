@@ -6,27 +6,22 @@ package org.centrale.objet.WoE;
 
 /**
  *
- * @author Clément
+ * @author utaab
  */
-public class Archer extends Personnage {
-    private int nbFleches;
-
-    public Archer() {
+public class Guerrier extends Personnage {
+    
+    public Guerrier() {
         super();
-        this.nbFleches = 10;
     }
 
-    public Archer(int nbFleches, Archer a) {
-        super(a);
-        this.nbFleches = a.nbFleches;
+    public Guerrier(Paysan p) {
+        super(p);
     }
 
-    public Archer(int nbFleches, String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, Point2D pos) {
+    public Guerrier(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, Point2D pos) {
         super(nom, ptVie, degAtt, ptPar, pageAtt, distAttMax, pos);
-        this.nbFleches = nbFleches;
     }
     
     public void combattre(Creature c){
     }
-
 }
