@@ -16,7 +16,7 @@ public class Archer extends Personnage {
         this.nbFleches = 10;
     }
 
-    public Archer(int nbFleches, Archer a) {
+    public Archer(Archer a) {
         super(a);
         this.nbFleches = a.nbFleches;
     }

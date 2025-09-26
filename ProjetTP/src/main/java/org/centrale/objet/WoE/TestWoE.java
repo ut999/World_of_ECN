@@ -11,16 +11,46 @@ package org.centrale.objet.WoE;
 public class TestWoE {
 
     public static void main(String[] args) {
-        World mondeTest = new World();
-        mondeTest.bugs.affiche();
-        mondeTest.peon.affiche();
-        mondeTest.robin.affiche();
         
-        System.out.println("aleatoire");
+        World mondeTest = new World();
+        
+        /*
+        //Tests Slide 5
+        System.out.println("Creation du monde aleatoire");
         mondeTest.creerMondeAlea();
         
         mondeTest.bugs.affiche();
         mondeTest.peon.affiche();
         mondeTest.robin.affiche();
+        
+        System.out.println("Deplacements aleatoire des personages");
+       
+        for(int i=0;i<15;i++)
+        {
+             mondeTest.bugs.deplace();
+             mondeTest.peon.deplace();
+             mondeTest.robin.deplace();
+        }
+        
+        mondeTest.bugs.affiche();
+        mondeTest.peon.affiche();
+        mondeTest.robin.affiche();
+        */
+        
+       /*       
+       //Tests Slide 8 
+       
+       mondeTest.robin.setNom("Robin");
+       mondeTest.guillaumeT.setNom("GuillaumeT");
+       mondeTest.robin.affiche();
+       mondeTest.guillaumeT.affiche();
+       
+       System.out.println("Deplacements aleatoire des personages");
+       mondeTest.robin.deplace();
+       mondeTest.guillaumeT.deplace();
+       
+       mondeTest.robin.affiche();
+       mondeTest.guillaumeT.affiche();*/
+        
     }
 }
