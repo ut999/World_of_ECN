@@ -60,6 +60,8 @@ public class Point2D {
     }
     
     public float distance(Point2D p) {
-        return 0;
+        int dist_x = this.x - p.x;
+        int dist_y = this.y - p.y;
+        return (float) Math.sqrt(dist_x*dist_x + dist_y*dist_y);
     }
 }
