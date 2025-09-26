@@ -11,11 +11,11 @@ import java.util.Random;
  */
 public class Creature {
     
-    public int ptVie;
-    public int degAtt;
-    public int ptPar;
-    public int pageAtt;
-    public Point2D pos;
+    private int ptVie;
+    private int degAtt;
+    private int ptPar;
+    private int pageAtt;
+    private Point2D pos;
 
     public Creature() {
         this.ptVie = 100;
@@ -68,7 +68,17 @@ public class Creature {
     public int getPageAtt() {
         return pageAtt;
     }
+    
+    /**
+     *
+     * @param pageAtt
+     */
+    public void setPageAtt(int pageAtt) {
+        this.pageAtt = pageAtt;
+    }
 
+    
+    
     public Point2D getPos() {
         return pos;
     }

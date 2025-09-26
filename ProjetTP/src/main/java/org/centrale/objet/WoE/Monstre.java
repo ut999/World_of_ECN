@@ -28,15 +28,6 @@ public class Monstre extends Creature{
 
     public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
         super(ptVie, degAtt, ptPar, pageAtt, pos);
-        this.pos = pos;
-    }
-
-    /**
-     *
-     * @param pageAtt
-     */
-    public void setPageAtt(int pageAtt) {
-        this.pageAtt = pageAtt;
     }
 
     /**
