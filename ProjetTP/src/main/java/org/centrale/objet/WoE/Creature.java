@@ -68,7 +68,7 @@ public class Creature {
     public int getPageAtt() {
         return pageAtt;
     }
-
+    
     public void setPageAtt(int pageAtt) {
         this.pageAtt = pageAtt;
     }

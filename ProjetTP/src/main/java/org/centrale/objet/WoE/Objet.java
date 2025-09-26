@@ -10,12 +10,29 @@ package org.centrale.objet.WoE;
  */
 public class Objet {
     
+    private Point2D pos;
+    
     public Objet() {
+        this.pos = new Point2D(0,0);
     }
     
     public Objet(Objet o) {
+        this.pos = o.pos;
     }
     
-    public Objet(int poids) {
+    public Objet(Point2D pos) {
+        this.pos = pos;
+    }
+
+    public Point2D getPos() {
+        return pos;
+    }
+
+    public void setPos(Point2D pos) {
+        this.pos = pos;
+    }
+    
+    public void affiche() {
+        pos.affiche();
     }
 }

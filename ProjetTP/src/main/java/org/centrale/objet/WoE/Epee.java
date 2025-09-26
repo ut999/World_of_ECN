@@ -20,8 +20,8 @@ public class Epee extends Objet {
         super(e);
         this.degAtt = e.degAtt;
     }
-    public Epee(int degAtt) {
-        super();
+    public Epee(Point2D pos, int degAtt) {
+        super(pos);
         this.degAtt = degAtt;
     }
 
@@ -31,5 +31,11 @@ public class Epee extends Objet {
 
     public void setDegAtt(int degAtt) {
         this.degAtt = degAtt;
+    }
+    
+    @Override
+    public void affiche() {
+        System.out.println("\nAffichage d'un epee");
+        super.affiche();
     }
 }

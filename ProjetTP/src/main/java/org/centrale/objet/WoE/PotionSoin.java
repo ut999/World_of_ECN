@@ -22,8 +22,8 @@ public class PotionSoin extends Objet {
         this.ptSoin = p.ptSoin;
     }
 
-    public PotionSoin(int poids, int ptSoin) {
-        super(poids);
+    public PotionSoin(Point2D pos, int ptSoin) {
+        super(pos);
         this.ptSoin = ptSoin;
     }
 
@@ -35,5 +35,9 @@ public class PotionSoin extends Objet {
         this.ptSoin = ptSoin;
     }
     
-    
+    @Override
+    public void affiche() {
+        System.out.println("\nAffichage d'un epee");
+        super.affiche();
+    }
 }

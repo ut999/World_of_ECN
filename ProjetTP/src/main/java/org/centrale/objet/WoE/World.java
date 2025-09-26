@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.WoE;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Iterator;
 /**
  * Classe représentant le monde
  * @author Clément
@@ -24,6 +26,7 @@ public class World {
     public Archer guillaumeT;
     public Guerrier grosbill;
     public Loup wolfie;
+    public ArrayList<PotionSoin> potions;
 
     /**
      * Construction du monde
@@ -36,14 +39,14 @@ public class World {
         guillaumeT = new Archer();
         grosbill = new Guerrier();
         wolfie = new Loup();
+        potions = new ArrayList<PotionSoin>();
     }
     
     /**
      *  Randomisation du monde, robin peon et bugs se déplacent sur une case aléatoire, 
      * Robin et Peon obtiennent un nom aléatoire parmis une liste de nom prédéfini
      */
-    public void creerMondeAlea()
-    {
+    public void creerMondeAlea() {
         Random generateur = new Random();
         
         //positionnements aléatoires
@@ -66,10 +69,30 @@ public class World {
         peon.setNom(banqueDeNoms[generateur.nextInt(13)]);
         guillaumeT.setNom(banqueDeNoms[generateur.nextInt(13)]);
         grosbill.setNom(banqueDeNoms[generateur.nextInt(13)]);
+        
+        //Initialisation des potions
+        int nb_potion = generateur.nextInt(5,20);
+        for (int i = 0; i<nb_potion; i++) {
+            PotionSoin potion = new PotionSoin();
+            potion.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
+            potions.add(potion);
+        }
+    }
+    
+    public void consommerPotion() {
+        // Utilisation de l'iterator pour eviter l'ambiguite d'indexation lors de suppression des elements
+        Iterator<PotionSoin> it = potions.iterator();
+        while (it.hasNext()) {
+            PotionSoin potion = it.next();
+            if (robin.getPos() == potion.getPos()) {
+                robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
+                it.remove();
+            }
+        }
     }
     
     public void tourDeJeu() {
-        
+        consommerPotion();
     }
     
     public void afficheWorld() {
