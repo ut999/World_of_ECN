@@ -15,13 +15,15 @@ public class Creature {
     private int degAtt;
     private int ptPar;
     private int pageAtt;
+    private int pagePar;
     private Point2D pos;
 
     public Creature() {
         this.ptVie = 100;
         this.degAtt = 10;
-        this.ptPar = 1;
-        this.pageAtt = 1;
+        this.ptPar = 5;
+        this.pageAtt = 90;
+        this.pagePar = 60;
         this.pos = new Point2D(0,0);
     }
     
@@ -33,11 +35,12 @@ public class Creature {
         this.pos = c.pos;
     }
     
-    public Creature(int ptVie, int degAtt, int ptPar, int pageAtt, Point2D pos) {
+    public Creature(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
         this.ptVie = ptVie;
         this.degAtt = degAtt;
         this.ptPar = ptPar;
         this.pageAtt = pageAtt;
+        this.pagePar = pagePar;
         this.pos = pos;
     }
 
@@ -77,7 +80,21 @@ public class Creature {
         this.pageAtt = pageAtt;
     }
 
-    
+        /**
+     *
+     * @return
+     */
+    public int getPagePar() {
+        return pagePar;
+    }
+
+    /**
+     *
+     * @param pagePar
+     */
+    public void setPagePar(int pagePar) {
+        this.pagePar = pagePar;
+    }
     
     public Point2D getPos() {
         return pos;

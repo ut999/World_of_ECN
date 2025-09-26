@@ -10,11 +10,9 @@ import java.util.Random;
  * @author utaab
  */
 public class Monstre extends Creature{
-    private int pagePar;
 
     public Monstre() {
         super();
-        this.pagePar = 1;
     }
     
     /**
@@ -23,28 +21,12 @@ public class Monstre extends Creature{
      */
     public Monstre(Monstre m) {
         super(m);
-        this.pagePar = m.pagePar;
     }
 
     public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
-        super(ptVie, degAtt, ptPar, pageAtt, pos);
+        super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getPagePar() {
-        return pagePar;
-    }
-
-    /**
-     *
-     * @param pagePar
-     */
-    public void setPagePar(int pagePar) {
-        this.pagePar = pagePar;
-    }
     
     @Override
     public void affiche() {

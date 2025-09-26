@@ -60,5 +60,28 @@ public class TestWoE {
        mondeTest.guillaumeT.affiche();
        mondeTest.grosbill.affiche();
        mondeTest.wolfie.affiche();*/
+       
+       //Tests Slide 22
+       mondeTest.robin.getPos().setPosition(0, 0);
+       mondeTest.robin.setDistAttMax(3);
+       mondeTest.robin.setNom("Robin");
+       
+       mondeTest.bugs1.getPos().setPosition(1, 0);
+       mondeTest.bugs2.getPos().setPosition(3, 0);
+       mondeTest.peon.getPos().setPosition(4, 0);
+       
+       mondeTest.robin.combattre(mondeTest.bugs1);
+       mondeTest.robin.combattre(mondeTest.bugs2);
+       mondeTest.robin.combattre(mondeTest.bugs2);
+       mondeTest.robin.combattre(mondeTest.peon);
+       
+       System.out.println("\n attaques du guerrier \n");
+       
+       mondeTest.grosbill.getPos().setPosition(2, 0);
+       mondeTest.grosbill.setNom("GrosBill");
+       
+       mondeTest.grosbill.combattre(mondeTest.bugs1);
+       mondeTest.grosbill.combattre(mondeTest.bugs2);
+       mondeTest.grosbill.combattre(mondeTest.peon);
     }
 }
