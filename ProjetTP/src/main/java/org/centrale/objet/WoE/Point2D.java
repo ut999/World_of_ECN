@@ -56,6 +56,12 @@ public class Point2D {
     public void affiche() {
         System.out.println(
                 "Position :\nx = " + x + 
-                "\ny : " + y);
+                "\ny = " + y);
+    }
+    
+    public float distance(Point2D p) {
+        int dist_x = this.x - p.x;
+        int dist_y = this.y - p.y;
+        return (float) Math.sqrt(dist_x*dist_x + dist_y*dist_y);
     }
 }

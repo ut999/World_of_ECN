@@ -8,18 +8,21 @@ package org.centrale.objet.WoE;
  *
  * @author utaab
  */
-public class Lapin extends Monstre {
-
-    public Lapin() {
+public class Loup extends Monstre {
+    
+    public Loup() {
         super();
     }
     
-    public Lapin(Lapin l) {
+    public Loup(Loup l) {
         super(l);
     }
 
-    public Lapin(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
+    public Loup(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
         super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
+    }
+    
+    public void combattre(Creature c){
     }
     
     @Override

@@ -11,7 +11,6 @@ package org.centrale.objet.WoE;
 public class TestWoE {
 
     public static void main(String[] args) {
-        
         World mondeTest = new World();
         
         /*
@@ -19,7 +18,6 @@ public class TestWoE {
         System.out.println("Creation du monde aleatoire");
         mondeTest.creerMondeAlea();
         
-        mondeTest.bugs.affiche();
         mondeTest.peon.affiche();
         mondeTest.robin.affiche();
         
@@ -52,5 +50,15 @@ public class TestWoE {
        mondeTest.robin.affiche();
        mondeTest.guillaumeT.affiche();*/
         
+       
+       /*       
+       //Tests Slide 13
+       mondeTest.peon.affiche();
+       mondeTest.robin.affiche();
+       mondeTest.bugs1.affiche();
+       mondeTest.bugs2.affiche();
+       mondeTest.guillaumeT.affiche();
+       mondeTest.grosbill.affiche();
+       mondeTest.wolfie.affiche();*/
     }
 }

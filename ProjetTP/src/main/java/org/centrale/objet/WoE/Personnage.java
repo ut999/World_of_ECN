@@ -3,33 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE;
-import java.util.Random;
-
 /**
  * Classe de gestion des personnages
  * @author Clément
  */
-public class Personnage {
+public class Personnage extends Creature {
     //attributes
     private String nom;
-    private int ptVie;
-    private int degAtt;
-    private int ptPar;
-    private int pageAtt;
     private int distAttMax;
-    private Point2D pos;
 
     /**
      * Constructeur de Personnage ne prenant pas de paramètres
      */
     public Personnage() {
+        super();
         this.nom = "Pierre";
-        this.ptVie = 100;
-        this.degAtt = 10;
-        this.ptPar = 2;
-        this.pageAtt = 2;
         this.distAttMax = 1;
-        this.pos = new Point2D();
     }
 
     /**
@@ -37,13 +26,9 @@ public class Personnage {
      * @param p personnage à copier
      */
     public Personnage(Personnage p) {
+        super(p);
         this.nom = p.nom;
-        this.ptVie = p.ptVie;
-        this.degAtt = p.degAtt;
-        this.ptPar = p.ptPar;
-        this.pageAtt = p.pageAtt;
         this.distAttMax = p.distAttMax;
-        this.pos = new Point2D(p.pos);
     }
 
     /**
@@ -57,13 +42,9 @@ public class Personnage {
      * @param pos
      */
     public Personnage(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, Point2D pos) {
+        super(ptVie, degAtt, ptPar, pageAtt, pos);
         this.nom = nom;
-        this.ptVie = ptVie;
-        this.degAtt = degAtt;
-        this.ptPar = ptPar;
-        this.pageAtt = pageAtt;
         this.distAttMax = distAttMax;
-        this.pos = pos;
     }
 
     /**
@@ -82,61 +63,6 @@ public class Personnage {
         this.nom = nom;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getPtVie() {
-        return ptVie;
-    }
-
-    /**
-     *
-     * @param ptVie
-     */
-    public void setPtVie(int ptVie) {
-        this.ptVie = ptVie;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getDegAtt() {
-        return degAtt;
-    }
-
-    /**
-     *
-     * @param degAtt
-     */
-    public void setDegAtt(int degAtt) {
-        this.degAtt = degAtt;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getPtPar() {
-        return ptPar;
-    }
-
-    /**
-     *
-     * @param ptPar
-     */
-    public void setPtPar(int ptPar) {
-        this.ptPar = ptPar;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getPageAtt() {
-        return pageAtt;
-    }
 
     /**
      *
@@ -153,48 +79,9 @@ public class Personnage {
     public int getDistAttMax() {
         return distAttMax;
     }
-
-    /**
-     *
-     * @param distAttMax
-     */
-    public void setDistAttMax(int distAttMax) {
-        this.distAttMax = distAttMax;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Point2D getPos() {
-        return pos;
-    }
-
-    /**
-     *
-     * @param pos
-     */
-    public void setPos(Point2D pos) {
-        this.pos = pos;
-    }
     
-    /**
-     * Fonction de déplacement aléatoire du personnage, il se déplace sur une case voisine (dont diagonale) ou reste sur place
-     */
-    public void deplace() {
-        Random generateur = new Random();
-        int dx = generateur.nextInt(-1,2);
-        int dy = generateur.nextInt(-1,2);
-        this.pos.translate(dx, dy);
-    }
-    
-    /**
-     * Fonction d'affichage d'un personnage où il donne ses informations
-     */
-    public void affiche()
-    {
-        System.out.println("Affichage de " + nom);
-        System.out.println("Nombre de points de vie actuels : " + ptVie);
-        pos.affiche();
+    @Override
+    public void affiche() {
+        super.affiche();
     }
 }
