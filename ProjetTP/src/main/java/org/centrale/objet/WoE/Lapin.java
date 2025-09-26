@@ -24,7 +24,7 @@ public class Lapin extends Monstre {
     
     @Override
     public void affiche() {
-        System.out.println("\nAffichage du loup");
+        System.out.println("\nAffichage du lapin");
         super.affiche();
     }
 }
