@@ -32,7 +32,4 @@ public class Epee extends Objet {
     public void setDegAtt(int degAtt) {
         this.degAtt = degAtt;
     }
-    
-    
-    
 }

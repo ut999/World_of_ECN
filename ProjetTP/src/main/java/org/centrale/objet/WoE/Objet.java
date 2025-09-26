@@ -10,27 +10,12 @@ package org.centrale.objet.WoE;
  */
 public class Objet {
     
-    public int poids;
-    
     public Objet() {
-        this.poids = 1;
     }
     
     public Objet(Objet o) {
-        this.poids = o.poids;
     }
     
     public Objet(int poids) {
-        this.poids = poids;
     }
-
-    public int getPoids() {
-        return poids;
-    }
-
-    public void setPoids(int poids) {
-        this.poids = poids;
-    }
-    
-    
 }

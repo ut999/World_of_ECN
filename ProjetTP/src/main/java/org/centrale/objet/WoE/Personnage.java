@@ -63,21 +63,12 @@ public class Personnage extends Creature {
         this.nom = nom;
     }
 
-
-    /**
-     *
-     * @param pageAtt
-     */
-    public void setPageAtt(int pageAtt) {
-        this.pageAtt = pageAtt;
-    }
-
-    /**
-     *
-     * @return
-     */
     public int getDistAttMax() {
         return distAttMax;
+    }
+
+    public void setDistAttMax(int distAttMax) {
+        this.distAttMax = distAttMax;
     }
     
     @Override
