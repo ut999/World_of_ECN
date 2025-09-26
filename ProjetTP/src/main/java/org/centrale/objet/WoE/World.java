@@ -5,11 +5,19 @@
 package org.centrale.objet.WoE;
 import java.util.Random;
 /**
- *
+ * Classe représentant le monde
  * @author Clément
  */
 public class World {
+
+    /**
+     *   Archer d'exemple Robin
+     */
     public Archer robin;
+    
+    /**
+     *  Paysan nommé peon
+     */
     public Paysan peon;
     public Lapin bugs1;
     public Lapin bugs2;
@@ -17,6 +25,9 @@ public class World {
     public Guerrier grosbill;
     public Loup wolfie;
 
+    /**
+     * Construction du monde
+     */
     public World() {
         robin = new Archer();
         peon = new Paysan();
@@ -27,6 +38,10 @@ public class World {
         wolfie = new Loup();
     }
     
+    /**
+     *  Randomisation du monde, robin peon et bugs se déplacent sur une case aléatoire, 
+     * Robin et Peon obtiennent un nom aléatoire parmis une liste de nom prédéfini
+     */
     public void creerMondeAlea()
     {
         Random generateur = new Random();

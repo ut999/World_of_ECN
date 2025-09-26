@@ -6,7 +6,7 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- *
+ * Classe représentant un monstre
  * @author utaab
  */
 public class Monstre extends Creature{
@@ -17,6 +17,10 @@ public class Monstre extends Creature{
         this.pagePar = 1;
     }
     
+    /**
+     * Constructeur copie
+     * @param m
+     */
     public Monstre(Monstre m) {
         super(m);
         this.pagePar = m.pagePar;
@@ -27,14 +31,26 @@ public class Monstre extends Creature{
         this.pos = pos;
     }
 
+    /**
+     *
+     * @param pageAtt
+     */
     public void setPageAtt(int pageAtt) {
         this.pageAtt = pageAtt;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPagePar() {
         return pagePar;
     }
 
+    /**
+     *
+     * @param pagePar
+     */
     public void setPagePar(int pagePar) {
         this.pagePar = pagePar;
     }
