@@ -11,12 +11,20 @@ import java.util.Random;
 public class World {
     public Archer robin;
     public Paysan peon;
-    public Lapin bugs;
+    public Lapin bugs1;
+    public Lapin bugs2;
+    public Archer guillaumeT;
+    public Guerrier grosbill;
+    public Loup wolfie;
 
     public World() {
         robin = new Archer();
         peon = new Paysan();
-        bugs = new Lapin(); 
+        bugs1 = new Lapin(); 
+        bugs2 = new Lapin(); 
+        guillaumeT = new Archer();
+        grosbill = new Guerrier();
+        wolfie = new Loup();
     }
     
     public void creerMondeAlea()
@@ -26,8 +34,12 @@ public class World {
         //positionnements aléatoires
         robin.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
         peon.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
-        bugs.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
-        
+        bugs1.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
+        bugs2.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
+        guillaumeT.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
+        grosbill.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
+        wolfie.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
+
         //noms aléatoires
         String[] banqueDeNoms = { 
             "Alaric", "Roderic", "Gareth", 
@@ -37,5 +49,15 @@ public class World {
                 };
         robin.setNom(banqueDeNoms[generateur.nextInt(13)]);
         peon.setNom(banqueDeNoms[generateur.nextInt(13)]);
+        guillaumeT.setNom(banqueDeNoms[generateur.nextInt(13)]);
+        grosbill.setNom(banqueDeNoms[generateur.nextInt(13)]);
+    }
+    
+    public void tourDeJeu() {
+        
+    }
+    
+    public void afficheWorld() {
+        
     }
 }

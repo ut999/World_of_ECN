@@ -12,15 +12,23 @@ public class TestWoE {
 
     public static void main(String[] args) {
         World mondeTest = new World();
-        mondeTest.bugs.affiche();
         mondeTest.peon.affiche();
         mondeTest.robin.affiche();
+        mondeTest.bugs1.affiche();
+        mondeTest.bugs2.affiche();
+        mondeTest.guillaumeT.affiche();
+        mondeTest.grosbill.affiche();
+        mondeTest.wolfie.affiche();
         
         System.out.println("aleatoire");
         mondeTest.creerMondeAlea();
         
-        mondeTest.bugs.affiche();
         mondeTest.peon.affiche();
         mondeTest.robin.affiche();
+        mondeTest.bugs1.affiche();
+        mondeTest.bugs2.affiche();
+        mondeTest.guillaumeT.affiche();
+        mondeTest.grosbill.affiche();
+        mondeTest.wolfie.affiche();
     }
 }

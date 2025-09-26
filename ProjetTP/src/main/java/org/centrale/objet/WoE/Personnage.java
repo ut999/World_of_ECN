@@ -45,5 +45,9 @@ public class Personnage extends Creature {
     public int getDistAttMax() {
         return distAttMax;
     }
-
+    
+    @Override
+    public void affiche() {
+        super.affiche();
+    }
 }

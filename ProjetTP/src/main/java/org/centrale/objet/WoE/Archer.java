@@ -9,6 +9,7 @@ package org.centrale.objet.WoE;
  * @author Clément
  */
 public class Archer extends Personnage {
+    
     private int nbFleches;
 
     public Archer() {
@@ -16,7 +17,7 @@ public class Archer extends Personnage {
         this.nbFleches = 10;
     }
 
-    public Archer(int nbFleches, Archer a) {
+    public Archer(Archer a) {
         super(a);
         this.nbFleches = a.nbFleches;
     }
@@ -27,6 +28,12 @@ public class Archer extends Personnage {
     }
     
     public void combattre(Creature c){
+    }
+    
+    @Override
+    public void affiche() {
+        System.out.println("\nAffichage de l'archer");
+        super.affiche();
     }
 
 }

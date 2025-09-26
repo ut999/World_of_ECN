@@ -38,4 +38,9 @@ public class Monstre extends Creature{
     public void setPagePar(int pagePar) {
         this.pagePar = pagePar;
     }
+    
+    @Override
+    public void affiche() {
+        super.affiche();
+    }
 }

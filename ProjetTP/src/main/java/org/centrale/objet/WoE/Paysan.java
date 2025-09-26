@@ -22,4 +22,9 @@ public class Paysan extends Personnage {
         super(nom, ptVie, degAtt, ptPar, pageAtt, distAttMax, pos);
     }
     
+    @Override
+    public void affiche() {
+        System.out.println("\nAffichage du paysan");
+        super.affiche();
+    }
 }

@@ -24,4 +24,10 @@ public class Guerrier extends Personnage {
     
     public void combattre(Creature c){
     }
+    
+    @Override
+    public void affiche() {
+        System.out.println("\nAffichage du guerrier");
+        super.affiche();
+    }
 }
