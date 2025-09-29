@@ -65,10 +65,10 @@ public class World {
             "Isambard", "Cressida ", "Beatrix", 
             "Gwendolyn", "Lyanna", "Verena"
                 };
-        robin.setNom(banqueDeNoms[generateur.nextInt(13)]);
-        peon.setNom(banqueDeNoms[generateur.nextInt(13)]);
-        guillaumeT.setNom(banqueDeNoms[generateur.nextInt(13)]);
-        grosbill.setNom(banqueDeNoms[generateur.nextInt(13)]);
+        robin.setNom(banqueDeNoms[generateur.nextInt(banqueDeNoms.length)]);
+        peon.setNom(banqueDeNoms[generateur.nextInt(banqueDeNoms.length)]);
+        guillaumeT.setNom(banqueDeNoms[generateur.nextInt(banqueDeNoms.length)]);
+        grosbill.setNom(banqueDeNoms[generateur.nextInt(banqueDeNoms.length)]);
         
         //Initialisation des potions
         int nb_potion = generateur.nextInt(5,20);
@@ -80,15 +80,36 @@ public class World {
     }
     
     public void consommerPotion() {
-        // Utilisation de l'iterator pour eviter l'ambiguite d'indexation lors de suppression des elements
-        Iterator<PotionSoin> it = potions.iterator();
-        while (it.hasNext()) {
-            PotionSoin potion = it.next();
-            if (robin.getPos() == potion.getPos()) {
-                robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
-                it.remove();
+        
+        System.out.println("\nConsommerPotion");
+        
+        //La fonction remove supprime la premierer occurence de la liste, donc si deux objet identique existe, erreur de memoire
+        /*for (PotionSoin potion : potions) {
+        if (robin.getPos().equals(potion.getPos())) {
+        robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
+        potions.remove(potion);
+        System.out.println("robin a une point de vie en plus !");
+        }
+        }*/
+        
+        
+        for (int i = potions.size()-1; i>=0; i--) {
+            if (robin.getPos().equals(potions.get(i).getPos())) {
+                robin.setPtVie(potions.get(i).getPtSoin() + robin.getPtVie());
+                potions.remove(i);
+                System.out.println("robin gagne " + potions.get(i).getPtSoin() + " point de vie !");
             }
         }
+        
+        // Utilisation de l'iterator pour eviter l'ambiguite d'indexation lors de suppression des elements
+        /*Iterator<PotionSoin> it = potions.iterator();
+        while (it.hasNext()) {
+        PotionSoin potion = it.next();
+        if (robin.getPos().equals(potion.getPos())) {
+        robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
+        it.remove();
+        }
+        }*/
     }
     
     public void tourDeJeu() {

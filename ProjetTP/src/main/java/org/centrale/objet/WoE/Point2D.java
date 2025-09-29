@@ -47,6 +47,11 @@ public class Point2D {
         this.x = x;
         this.y = y;
     }
+    
+    public boolean equals(Point2D p) {
+        return (this.x == p.x && 
+                this.y == p.y);
+    }
 
     public void translate(int dx, int dy) {
         this.x = x + dx;

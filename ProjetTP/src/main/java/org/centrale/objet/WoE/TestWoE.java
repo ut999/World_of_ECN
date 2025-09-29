@@ -60,5 +60,21 @@ public class TestWoE {
        mondeTest.guillaumeT.affiche();
        mondeTest.grosbill.affiche();
        mondeTest.wolfie.affiche();*/
+       
+       //Test slide 23; potion
+       System.out.println("Creation du monde aleatoire");
+       mondeTest.creerMondeAlea();
+       
+       mondeTest.robin.setPos(new Point2D(mondeTest.potions.get(0).getPos()));
+       
+       mondeTest.robin.affiche();
+       mondeTest.potions.get(0).affiche();
+       System.out.println("\nNombre de porion : " + mondeTest.potions.size());
+       
+       mondeTest.consommerPotion();
+       
+       mondeTest.robin.affiche();
+       
+       System.out.println("\nNombre de porion : " + mondeTest.potions.size());
     }
 }

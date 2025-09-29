@@ -37,7 +37,8 @@ public class PotionSoin extends Objet {
     
     @Override
     public void affiche() {
-        System.out.println("\nAffichage d'un epee");
+        System.out.println("\nAffichage d'une potion");
+        System.out.println("ptSoin = " + ptSoin);
         super.affiche();
     }
 }
