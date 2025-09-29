@@ -7,23 +7,49 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- *
+ * Représente un monstre loup
  * @author utaab
  */
 public class Loup extends Monstre {
     
+    /**
+     *
+     */
     public Loup() {
         super();
     }
     
+    /**
+     *
+     * @param l
+     */
     public Loup(Loup l) {
         super(l);
     }
 
+    /**
+     *
+     * @param ptVie
+     * @param degAtt
+     * @param ptPar
+     * @param pageAtt
+     * @param pagePar
+     * @param pos
+     */
     public Loup(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
         super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
     }
     
+     /**
+     * permet de combattre une creature 
+     * il frappe au corps à corps si il est à une distance de 1 de la cible
+     * il rate son attaque si la cible est en dehors de sa portée
+     * 
+     * Si son attaque est possible il va effectuer un jet pour savoir si il touche son attaque
+     * la cible est capable de parer une partie des dégâts de l'attaque si elle réussit un jet
+     * 
+     * @param c cible de l'attaque de l'archer
+     */
     public void combattre(Creature c){
         Point2D positionCible = c.getPos();
         
@@ -71,6 +97,10 @@ public class Loup extends Monstre {
             System.out.println("Le loup n'est pas a portee de cible de sa cible");
         }
     }
+
+    /**
+     *
+     */
     @Override
     public void affiche() {
         System.out.println("\nAffichage du loup");

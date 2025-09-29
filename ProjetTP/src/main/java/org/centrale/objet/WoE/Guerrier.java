@@ -7,23 +7,53 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- *
+ * Représente un personnage guerrier
+ * 
  * @author utaab
  */
 public class Guerrier extends Personnage {
     
+    /**
+     *
+     */
     public Guerrier() {
         super();
     }
 
+    /**
+     *
+     * @param p
+     */
     public Guerrier(Paysan p) {
         super(p);
     }
 
+    /**
+     *
+     * @param nom
+     * @param ptVie
+     * @param degAtt
+     * @param ptPar
+     * @param pageAtt
+     * @param distAttMax
+     * @param pagePer
+     * @param pos
+     */
     public Guerrier(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax,int pagePer, Point2D pos) {
         super(nom, ptVie, degAtt, ptPar, pageAtt, distAttMax,pagePer, pos);
     }
     
+    
+     /**
+     * permet de combattre une creature 
+     * il frappe au corps à corps si il est à une distance de 1 de la cible
+     * il rate son attaque si la cible est en dehors de sa portée
+     * 
+     * Si son attaque est possible il va effectuer un jet pour savoir si il touche son attaque
+     * la cible est capable de parer une partie des dégâts de l'attaque si elle réussit un jet
+     * 
+     * @param c cible de l'attaque de l'archer
+     */
     public void combattre(Creature c){
         Point2D positionCible = c.getPos();
         
@@ -72,6 +102,9 @@ public class Guerrier extends Personnage {
         }
     }
     
+    /**
+     *
+     */
     @Override
     public void affiche() {
         System.out.println("\nAffichage du guerrier");
