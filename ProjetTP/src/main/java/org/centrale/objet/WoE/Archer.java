@@ -7,7 +7,8 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- *
+ * Classe représentant un personnage Archer
+ * 
  * @author Clément
  */
 public class Archer extends Personnage {
@@ -23,7 +24,7 @@ public class Archer extends Personnage {
     }
 
     /**
-     *
+     * 
      * @param a
      */
     public Archer(Archer a) {
@@ -31,22 +32,50 @@ public class Archer extends Personnage {
         this.nbFleches = a.nbFleches;
     }
 
+    /**
+     *
+     * @param nbFleches
+     * @param nom
+     * @param ptVie
+     * @param degAtt
+     * @param ptPar
+     * @param pageAtt
+     * @param distAttMax
+     * @param pagePar
+     * @param pos
+     */
+    
     public Archer(int nbFleches, String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
         super(nom, ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePar, pos);
         this.nbFleches = nbFleches;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNbFleches() {
         return nbFleches;
     }
 
+    /**
+     *
+     * @param nbFleches
+     */
     public void setNbFleches(int nbFleches) {
         this.nbFleches = nbFleches;
     }
     
     /**
-     *
-     * @param c
+     * permet a l'archer de combattre une creature 
+     * il frappe au corps à corps si il est à une distance de 1 de la cible
+     * il frappe à distance si il est à une distance supérieure à 1 mais inférieur ou égal à sa portée de la cible et qu'il a des flèches
+     * il rate son attaque si la cible est en dehors de sa portée
+     * 
+     * Si son attaque est possible il va effectuer un jet pour savoir si il touche son attaque
+     * Si il s'agit d'une attaque au corps à corps, la cible est capable de parer une partie des dégâts de l'attaque si elle réussit un jet
+     * 
+     * @param c cible de l'attaque de l'archer
      */
     public void combattre(Creature c){
         Point2D positionCible = c.getPos();

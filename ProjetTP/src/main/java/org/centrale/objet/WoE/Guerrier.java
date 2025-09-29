@@ -32,7 +32,7 @@ public class Guerrier extends Personnage {
         //attaque melee
         if(distanceCible <=1)
         {
-            System.out.println("Attaque melee de l'archer : " + this.getNom());
+            System.out.println("Attaque melee du guerrier : " + this.getNom());
             
             Random generateur = new Random();
             int jetAttaquant = generateur.nextInt(1, 101);

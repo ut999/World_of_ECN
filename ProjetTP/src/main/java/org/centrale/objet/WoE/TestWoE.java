@@ -71,19 +71,30 @@ public class TestWoE {
        mondeTest.peon.getPos().setPosition(4, 0);
        
        mondeTest.robin.combattre(mondeTest.bugs1);
+       
+       System.out.println("\nAttaque 1 de robin contre bugs2 \n");
        mondeTest.robin.combattre(mondeTest.bugs2);
+       
+       System.out.println("\nAttaque 2 de robin contre bugs2 \n");
        mondeTest.robin.combattre(mondeTest.bugs2);
        mondeTest.robin.combattre(mondeTest.peon);
        
-       System.out.println("\n attaques du guerrier \n");
        
        mondeTest.grosbill.getPos().setPosition(2, 0);
        mondeTest.grosbill.setNom("GrosBill");
+       mondeTest.grosbill.setPageAtt(75);
        
+       System.out.println("\n attaque 1 du guerrier \n");
        mondeTest.grosbill.combattre(mondeTest.bugs1);
-       mondeTest.grosbill.combattre(mondeTest.bugs2);
+       System.out.println("\n attaque 2 du guerrier \n");
+       mondeTest.grosbill.combattre(mondeTest.bugs1);
+       System.out.println("\n attaque 3 du guerrier \n");
+       mondeTest.grosbill.combattre(mondeTest.bugs1);
+       System.out.println("\n attaque 4 du guerrier \n");
        mondeTest.grosbill.combattre(mondeTest.peon);
+       
        //Test slide 23; potion
+       /*
        System.out.println("Creation du monde aleatoire");
        mondeTest.creerMondeAlea();
        
@@ -98,5 +109,6 @@ public class TestWoE {
        mondeTest.robin.affiche();
        
        System.out.println("\nNombre de porion : " + mondeTest.potions.size());
+       */
     }
 }
