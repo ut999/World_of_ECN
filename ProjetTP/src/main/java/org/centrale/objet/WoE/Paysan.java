@@ -18,8 +18,8 @@ public class Paysan extends Personnage {
         super(p);
     }
 
-    public Paysan(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, Point2D pos) {
-        super(nom, ptVie, degAtt, ptPar, pageAtt, distAttMax, pos);
+    public Paysan(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePer, Point2D pos) {
+        super(nom, ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePer, pos);
     }
     
     @Override

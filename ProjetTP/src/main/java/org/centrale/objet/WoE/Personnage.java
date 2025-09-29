@@ -38,11 +38,12 @@ public class Personnage extends Creature {
      * @param degAtt
      * @param ptPar
      * @param pageAtt
+     * @param pagePar
      * @param distAttMax
      * @param pos
      */
-    public Personnage(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, Point2D pos) {
-        super(ptVie, degAtt, ptPar, pageAtt, pos);
+    public Personnage(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
+        super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
         this.nom = nom;
         this.distAttMax = distAttMax;
     }
