@@ -4,6 +4,8 @@
 
 package org.centrale.objet.WoE;
 
+import java.util.Iterator;
+
 /**
  *
  * @author utaab
@@ -13,90 +15,33 @@ public class TestWoE {
     public static void main(String[] args) {
         World mondeTest = new World();
         
-        /*
-        //Tests Slide 5
-        System.out.println("Creation du monde aleatoire");
-        mondeTest.creerMondeAlea();
-        
-        mondeTest.peon.affiche();
-        mondeTest.robin.affiche();
-        
-        System.out.println("Deplacements aleatoire des personages");
-       
-        for(int i=0;i<15;i++)
-        {
-             mondeTest.bugs.deplace();
-             mondeTest.peon.deplace();
-             mondeTest.robin.deplace();
+        for (int nb = 100; nb<1000000; nb = nb*10) {
+            
+            System.out.println("\nNombre protagoniste : " + nb);
+            
+            mondeTest.creerMondeAlea(nb);
+
+            //Calcul du temps iterateur
+            int somme_ptVie_it = 0;
+            long startTime_it = System.nanoTime();
+            for(Personnage p : mondeTest.protagonistes) {
+                somme_ptVie_it += p.getPtVie();
+            }
+            long estimatedTime_it = System.nanoTime() - startTime_it;
+
+            System.out.println("\nSomme de point de vie : " + somme_ptVie_it);
+            System.out.println("Temps ecoule, iterateur : " + estimatedTime_it*10e-6);
+
+            //Calcul du temps get
+            int somme_ptVie_get = 0;
+            long startTime_get = System.nanoTime();
+            for (int i = 0; i<mondeTest.protagonistes.size(); i++) {
+                somme_ptVie_get += mondeTest.protagonistes.get(i).getPtVie();
+            }
+            long estimatedTime_get = System.nanoTime() - startTime_get;
+
+            System.out.println("\nSomme de point de vie : " + somme_ptVie_get);      
+            System.out.println("Temps ecoule, get : " + estimatedTime_get*10e-6);
         }
-        
-        mondeTest.bugs.affiche();
-        mondeTest.peon.affiche();
-        mondeTest.robin.affiche();
-        */
-        
-       /*       
-       //Tests Slide 8 
-       
-       mondeTest.robin.setNom("Robin");
-       mondeTest.guillaumeT.setNom("GuillaumeT");
-       mondeTest.robin.affiche();
-       mondeTest.guillaumeT.affiche();
-       
-       System.out.println("Deplacements aleatoire des personages");
-       mondeTest.robin.deplace();
-       mondeTest.guillaumeT.deplace();
-       
-       mondeTest.robin.affiche();
-       mondeTest.guillaumeT.affiche();*/
-        
-       
-       /*       
-       //Tests Slide 13
-       mondeTest.peon.affiche();
-       mondeTest.robin.affiche();
-       mondeTest.bugs1.affiche();
-       mondeTest.bugs2.affiche();
-       mondeTest.guillaumeT.affiche();
-       mondeTest.grosbill.affiche();
-       mondeTest.wolfie.affiche();*/
-       
-       //Tests Slide 22
-       mondeTest.robin.getPos().setPosition(0, 0);
-       mondeTest.robin.setDistAttMax(3);
-       mondeTest.robin.setNom("Robin");
-       
-       mondeTest.bugs1.getPos().setPosition(1, 0);
-       mondeTest.bugs2.getPos().setPosition(3, 0);
-       mondeTest.peon.getPos().setPosition(4, 0);
-       
-       mondeTest.robin.combattre(mondeTest.bugs1);
-       mondeTest.robin.combattre(mondeTest.bugs2);
-       mondeTest.robin.combattre(mondeTest.bugs2);
-       mondeTest.robin.combattre(mondeTest.peon);
-       
-       System.out.println("\n attaques du guerrier \n");
-       
-       mondeTest.grosbill.getPos().setPosition(2, 0);
-       mondeTest.grosbill.setNom("GrosBill");
-       
-       mondeTest.grosbill.combattre(mondeTest.bugs1);
-       mondeTest.grosbill.combattre(mondeTest.bugs2);
-       mondeTest.grosbill.combattre(mondeTest.peon);
-       //Test slide 23; potion
-       System.out.println("Creation du monde aleatoire");
-       mondeTest.creerMondeAlea();
-       
-       mondeTest.robin.setPos(new Point2D(mondeTest.potions.get(0).getPos()));
-       
-       mondeTest.robin.affiche();
-       mondeTest.potions.get(0).affiche();
-       System.out.println("\nNombre de porion : " + mondeTest.potions.size());
-       
-       mondeTest.consommerPotion();
-       
-       mondeTest.robin.affiche();
-       
-       System.out.println("\nNombre de porion : " + mondeTest.potions.size());
     }
 }
