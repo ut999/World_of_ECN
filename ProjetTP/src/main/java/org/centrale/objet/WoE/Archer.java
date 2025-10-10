@@ -7,7 +7,7 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- * Classe représentant un personnage Archer
+ * Représente un archer qui hérite de Personnage
  * 
  * @author Clément
  */

@@ -64,14 +64,25 @@ public class Personnage extends Creature {
         this.nom = nom;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDistAttMax() {
         return distAttMax;
     }
 
+    /**
+     *
+     * @param distAttMax
+     */
     public void setDistAttMax(int distAttMax) {
         this.distAttMax = distAttMax;
     }
     
+    /**
+     *
+     */
     @Override
     public void affiche() {
         super.affiche();

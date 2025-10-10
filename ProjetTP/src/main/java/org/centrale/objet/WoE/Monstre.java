@@ -6,23 +6,42 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- * Classe représentant un monstre
+ * Classe représentant un monstre, hérite de Créature
  * @author utaab
  */
 public class Monstre extends Creature{
     
+    /**
+     *
+     */
     public Monstre() {
         super();
     }
     
+    /**
+     *
+     * @param m
+     */
     public Monstre(Monstre m) {
         super(m);
     }
 
+    /**
+     *
+     * @param ptVie
+     * @param degAtt
+     * @param ptPar
+     * @param pageAtt
+     * @param pagePar
+     * @param pos
+     */
     public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
         super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
     }
 
+    /**
+     *
+     */
     @Override
     public void affiche() {
         super.affiche();

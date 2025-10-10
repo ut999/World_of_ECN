@@ -5,7 +5,7 @@
 package org.centrale.objet.WoE;
 
 /**
- *
+ *  Représente un objet
  * @author utaab
  */
 public class Objet {

@@ -6,7 +6,7 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- *
+ *  Représente l'ensemble des créatures
  * @author utaab
  */
 public class Creature {
@@ -18,6 +18,9 @@ public class Creature {
     private int pagePar;
     private Point2D pos;
 
+    /**
+     *
+     */
     public Creature() {
         this.ptVie = 100;
         this.degAtt = 10;
@@ -27,6 +30,10 @@ public class Creature {
         this.pos = new Point2D(0,0);
     }
     
+    /**
+     *
+     * @param c
+     */
     public Creature(Creature c) {
         this.ptVie = c.ptVie;
         this.degAtt = c.degAtt;
@@ -35,6 +42,15 @@ public class Creature {
         this.pos = c.pos;
     }
     
+    /**
+     *
+     * @param ptVie
+     * @param degAtt
+     * @param ptPar
+     * @param pageAtt
+     * @param pagePar
+     * @param pos
+     */
     public Creature(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
         this.ptVie = ptVie;
         this.degAtt = degAtt;
@@ -44,34 +60,66 @@ public class Creature {
         this.pos = pos;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPtVie() {
         return ptVie;
     }
 
+    /**
+     *
+     * @param ptVie
+     */
     public void setPtVie(int ptVie) {
         this.ptVie = ptVie;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDegAtt() {
         return degAtt;
     }
 
+    /**
+     *
+     * @param degAtt
+     */
     public void setDegAtt(int degAtt) {
         this.degAtt = degAtt;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPtPar() {
         return ptPar;
     }
 
+    /**
+     *
+     * @param ptPar
+     */
     public void setPtPar(int ptPar) {
         this.ptPar = ptPar;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPageAtt() {
         return pageAtt;
     }
     
+    /**
+     *
+     * @param pageAtt
+     */
     public void setPageAtt(int pageAtt) {
         this.pageAtt = pageAtt;
     }
@@ -92,14 +140,25 @@ public class Creature {
         this.pagePar = pagePar;
     }
     
+    /**
+     *
+     * @return
+     */
     public Point2D getPos() {
         return pos;
     }
 
+    /**
+     *
+     * @param pos
+     */
     public void setPos(Point2D pos) {
         this.pos = pos;
     }
 
+    /**
+     *
+     */
     public void deplace() {
         Random generateur = new Random();
         int dx = generateur.nextInt(-1, 2);
@@ -107,6 +166,9 @@ public class Creature {
         this.pos.translate(dx, dy);
     }
 
+    /**
+     *
+     */
     public void affiche() {
         System.out.println("Nombre de points de vie actuels : " + ptVie);
         pos.affiche();
