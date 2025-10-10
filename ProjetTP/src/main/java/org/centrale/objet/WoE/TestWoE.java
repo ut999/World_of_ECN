@@ -57,6 +57,49 @@ public class TestWoE {
        */
        mondeTest.creerMondeAlea();
        
-       mondeTest.tourDeJeu();
+       /*
+       
+       try {           
+            Archer archer = new Archer();
+            archer = null;
+            int ptDeVie = archer.getPtVie();
+       }
+       catch (NullPointerException exception) { 
+           System.out.println(exception);
+       }
+       finally{
+           System.out.println("Finally");
+       }
+       
+        try {           
+            int number = 5/0;
+        }
+        catch (ArithmeticException exception) { 
+           System.out.println(exception);
+        }
+       */
+       
+       int vieMaxPersonnage = -1;
+       boolean erreur = true;
+       while(vieMaxPersonnage==-1)
+       {
+            try {
+                vieMaxPersonnage = lectureHP(erreur);
+                System.out.println("reussite de la lecture");
+            }
+            catch (NumberFormatException exception) { 
+               System.out.println("echec de la lecture : " + exception);
+               erreur = false;
+            }
+       }
+       System.out.println("Vie Max Personnage : " + vieMaxPersonnage);
+    }
+    
+    public static int lectureHP(boolean erreur) throws NumberFormatException
+    {
+        String inputString = erreur?"200hp":"200";
+        return Integer.parseInt(inputString);
     }
 }
+
+
