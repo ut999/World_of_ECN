@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE;
-
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class Joueur {
     
     private Personnage personnage;
+    private ArrayList<Utilisable> effets;
 
     public Personnage getPersonnage() {
         return personnage;
@@ -21,6 +23,16 @@ public class Joueur {
     public void setPersonnage(Personnage personnage) {
         this.personnage = personnage;
     }
+
+    public ArrayList<Utilisable> getEffets() {
+        return effets;
+    }
+
+    public void setEffets(ArrayList<Utilisable> effets) {
+        this.effets = effets;
+    }
+    
+    
 
     public World getWorld() {
         return world;
@@ -66,7 +78,21 @@ public class Joueur {
         }
     }
     
+    public void activeUtilisable(Utilisable u) {
+        effets.add(u);
+        u.utiliser(this.personnage);
+    }
     
+    public void updateEffets() {
+        Iterator<Utilisable> it = effets.iterator();
+        while (it.hasNext()) {
+            Utilisable u = it.next();
+            if (u.finDuree()) {
+                u.finEffet(this.personnage);
+                it.remove();
+            }
+        }
+    }
     
     public void combatJoueur(Scanner sc)
     {

@@ -13,7 +13,7 @@ public class Epee extends Objet implements Utilisable {
     /**
      *
      */
-    private int degAtt;
+    private int bonusDegAtt;
     private int duree;
     
     /**
@@ -21,7 +21,7 @@ public class Epee extends Objet implements Utilisable {
      */
     public Epee() {
         super();
-        this.degAtt = 5;
+        this.bonusDegAtt = 5;
         this.duree = 30;
     }
     
@@ -31,7 +31,7 @@ public class Epee extends Objet implements Utilisable {
      */
     public Epee(Epee e) {
         super(e);
-        this.degAtt = e.degAtt;
+        this.bonusDegAtt = e.bonusDegAtt;
         this.duree = e.duree;
     }
 
@@ -43,7 +43,7 @@ public class Epee extends Objet implements Utilisable {
      */
     public Epee(Point2D pos, int degAtt, int duree) {
         super(pos);
-        this.degAtt = degAtt;
+        this.bonusDegAtt = degAtt;
         this.duree = duree;
     }
 
@@ -51,16 +51,24 @@ public class Epee extends Objet implements Utilisable {
      *
      * @return
      */
-    public int getDegAtt() {
-        return degAtt;
+    public int getBonusDegAtt() {
+        return bonusDegAtt;
     }
 
     /**
      *
      * @param degAtt
      */
-    public void setDegAtt(int degAtt) {
-        this.degAtt = degAtt;
+    public void setBonusDegAtt(int degAtt) {
+        this.bonusDegAtt = degAtt;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
     }
     
     /**
@@ -74,6 +82,17 @@ public class Epee extends Objet implements Utilisable {
     
     @Override
     public void utiliser(Creature c) {
-        
+        c.setDegAtt(c.getDegAtt() + this.bonusDegAtt);
+    }
+    
+    @Override
+    public boolean finDuree() {
+        this.duree -= 1;
+        return (this.duree == 0);
+    }
+    
+    @Override
+    public void finEffet(Creature c) {
+        c.setDegAtt(c.getDegAtt() - this.bonusDegAtt);
     }
 }

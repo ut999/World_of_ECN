@@ -10,16 +10,14 @@ package org.centrale.objet.WoE;
  */
 public class PotionSoin extends Objet implements Utilisable {
     
-    private int ptSoin;
-    private int duree;
+    private int bonusPtVie;
     
     /**
      *
      */
     public PotionSoin() {
         super();
-        this.ptSoin = 1;
-        this.duree = 1;
+        this.bonusPtVie = 1;
     }
     
     /**
@@ -28,8 +26,7 @@ public class PotionSoin extends Objet implements Utilisable {
      */
     public PotionSoin(PotionSoin p) {
         super(p);
-        this.ptSoin = p.ptSoin;
-        this.duree = p.duree;
+        this.bonusPtVie = p.bonusPtVie;
     }
 
     /**
@@ -38,40 +35,48 @@ public class PotionSoin extends Objet implements Utilisable {
      * @param ptSoin
      * @param duree
      */
-    public PotionSoin(Point2D pos, int ptSoin, int duree) {
+    public PotionSoin(Point2D pos, int bonusPtVie) {
         super(pos);
-        this.ptSoin = ptSoin;
-        this.duree = duree;
+        this.bonusPtVie = bonusPtVie;
     }
 
     /**
      *
      * @return
      */
-    public int getPtSoin() {
-        return ptSoin;
+    public int getBonusPtVie() {
+        return bonusPtVie;
     }
 
     /**
      *
      * @param ptSoin
      */
-    public void setPtSoin(int ptSoin) {
-        this.ptSoin = ptSoin;
+    public void setBonusPtVie(int bonusPtVie) {
+        this.bonusPtVie = bonusPtVie;
     }
-    
+
     /**
      *
      */
     @Override
     public void affiche() {
         System.out.println("\nAffichage d'une potion");
-        System.out.println("ptSoin = " + ptSoin);
+        System.out.println("ptSoin = " + bonusPtVie);
         super.affiche();
     }
     
     @Override
     public void utiliser(Creature c) {
-        
+        c.setPtVie(c.getPtVie() + this.bonusPtVie);
+    }
+    
+    @Override
+    public boolean finDuree() {
+        return true;
+    }
+    
+    @Override
+    public void finEffet(Creature c) {
     }
 }

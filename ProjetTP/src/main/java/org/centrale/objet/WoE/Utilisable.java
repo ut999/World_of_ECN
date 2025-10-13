@@ -9,5 +9,10 @@ package org.centrale.objet.WoE;
  * @author utaab
  */
 public interface Utilisable {
+    
     public void utiliser(Creature c);
+    
+    public boolean finDuree();
+    
+    public void finEffet(Creature c);
 }
