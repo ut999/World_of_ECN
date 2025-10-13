@@ -21,6 +21,8 @@ public class World {
      *  Conteneur listant l'ensemble des créatures du monde
      */
     public ArrayList<Creature> creatures;
+    
+    public Joueur joueur;
 
     /**
      * Taille selon l'axe X du monde, il s'étend de la case 0 à tailleX-1
@@ -98,6 +100,9 @@ public class World {
         {
             creerCreatureAlea();
         }
+        
+        Personnage persoJoueur = new Archer();
+        joueur = new Joueur(persoJoueur, this);
         
         /*
 
@@ -188,6 +193,7 @@ public class World {
      * et les postions consomables sont consommées.
      */
     public void tourDeJeu() {
+        joueur.tourJeu(1);
         
         for(Creature c : creatures) {
             deplaceSansCollisions(c);
@@ -196,7 +202,7 @@ public class World {
     }
     
     /**
-     *  Affiche le monde
+     *  Affiche le monden on séoare affiche qui donne juste les infos en texte et display qui montre de façon visuelle et belle le monde
      */
     public void afficheWorld() {
         for(Creature c : creatures) {
@@ -204,6 +210,94 @@ public class World {
         }
         for(Objet o : objets){
             o.affiche();
+        }
+    }
+    
+    public void displayTile(Point2D p) {
+        
+        int cx = p.getX();
+        int cy = p.getY();
+        if(cx<0 || cx>=World.tailleX || cy < 0 || cy >= World.tailleY)
+        {
+            System.out.print("X");
+            return;
+        }
+        if(p.equals(joueur.getPersonnage().getPos()))
+        {
+            System.out.print("J");
+            return;
+        }
+        for(Creature c : creatures) {
+            if(!p.equals(c.getPos()))
+            {
+              continue;  
+            }
+            if(c instanceof Archer)
+            {
+                System.out.print("A");
+                return;
+            }
+            if(c instanceof Guerrier)
+            {
+                System.out.print("G");
+                return;
+            }
+            if(c instanceof Paysan)
+            {
+                System.out.print("A");
+                return;
+            }
+            if(c instanceof Loup)
+            {
+                System.out.print("W");
+                return;
+            }
+            if(c instanceof Lapin)
+            {
+                System.out.print("L");
+                return;
+            }
+            System.out.print("C");
+            return;
+        }
+        for(Objet o : objets){
+            if(!p.equals(o.getPos()))
+            {
+              continue;  
+            }
+            if(o instanceof PotionSoin)
+            {
+                System.out.print("H");
+                return;
+            }
+            if(o instanceof Epee)
+            {
+                System.out.print("E");
+                return;
+            }
+            System.out.print("O");
+            return;
+        }
+        
+        System.out.print(" ");
+    }
+    
+    void displayZone(Point2D p, int rayon)
+    {
+        Point2D tileActuelle= new Point2D();
+        int px = p.getX();
+        int py = p.getY();
+        for(int dy = -rayon; dy <=rayon;dy++)
+        {
+            for(int dx = -rayon; dx <=rayon;dx++)
+            {
+                tileActuelle.setPosition(px,py);
+                tileActuelle.translate(dx,dy);
+                displayTile(tileActuelle);
+                
+                System.out.print(" ");
+            }
+            System.out.println();
         }
     }
     
@@ -254,8 +348,8 @@ public class World {
                 c.deplace();
                 if(!estCreatureSeuleSurCase(c))
                 {
-                    System.out.println("Collision ou sortie de carte detectee en x:" + 
-                            c.getPos().getX() + " y : " + c.getPos().getY());
+                    //System.out.println("Collision ou sortie de carte detectee en x:" + 
+                    //        c.getPos().getX() + " y : " + c.getPos().getY());
                     c.setPos(posMem);
                 }
                 else

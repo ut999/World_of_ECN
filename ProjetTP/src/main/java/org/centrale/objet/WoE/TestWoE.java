@@ -79,6 +79,7 @@ public class TestWoE {
         }
        */
        
+       /*
        int vieMaxPersonnage = -1;
        boolean erreur = true;
        while(vieMaxPersonnage==-1)
@@ -93,6 +94,9 @@ public class TestWoE {
             }
        }
        System.out.println("Vie Max Personnage : " + vieMaxPersonnage);
+       
+       */
+       mondeTest.tourDeJeu();
     }
     
     public static int lectureHP(boolean erreur) throws NumberFormatException
