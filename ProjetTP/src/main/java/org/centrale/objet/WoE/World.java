@@ -251,7 +251,7 @@ public class World {
         int limiteTentativesDeplacement = 10;
         for(int iTentative = 0; iTentative<=limiteTentativesDeplacement; iTentative++)
         {
-                c.deplace();
+                c.deplacer();
                 if(!estCreatureSeuleSurCase(c))
                 {
                     System.out.println("Collision ou sortie de carte detectee en x:" + 

@@ -9,7 +9,7 @@ import java.util.Random;
  *  Représente l'ensemble des créatures
  * @author utaab
  */
-public class Creature {
+public abstract class Creature implements Deplacable {
     
     private int ptVie;
     private int degAtt;
@@ -159,7 +159,8 @@ public class Creature {
     /**
      *
      */
-    public void deplace() {
+    @Override
+    public void deplacer() {
         Random generateur = new Random();
         int dx = generateur.nextInt(-1, 2);
         int dy = generateur.nextInt(-1, 2);

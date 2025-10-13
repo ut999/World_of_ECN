@@ -11,7 +11,7 @@ import java.util.Random;
  * 
  * @author utaab
  */
-public class Guerrier extends Personnage {
+public class Guerrier extends Personnage implements Combattant {
     
     /**
      *
@@ -54,6 +54,7 @@ public class Guerrier extends Personnage {
      * 
      * @param c cible de l'attaque de l'archer
      */
+    @Override
     public void combattre(Creature c){
         Point2D positionCible = c.getPos();
         

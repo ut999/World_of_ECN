@@ -10,7 +10,7 @@ import java.util.Random;
  * Représente un monstre loup
  * @author utaab
  */
-public class Loup extends Monstre {
+public class Loup extends Monstre implements Combattant {
     
     /**
      *
@@ -50,6 +50,7 @@ public class Loup extends Monstre {
      * 
      * @param c cible de l'attaque de l'archer
      */
+    @Override
     public void combattre(Creature c){
         Point2D positionCible = c.getPos();
         

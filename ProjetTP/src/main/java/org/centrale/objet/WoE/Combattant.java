@@ -9,5 +9,5 @@ package org.centrale.objet.WoE;
  * @author utaab
  */
 public interface Combattant {
-    public void combattre();
+    public void combattre(Creature c);
 }

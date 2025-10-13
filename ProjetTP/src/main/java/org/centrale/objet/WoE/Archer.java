@@ -11,7 +11,7 @@ import java.util.Random;
  * 
  * @author Clément
  */
-public class Archer extends Personnage {
+public class Archer extends Personnage implements Combattant {
     
     private int nbFleches;
 
@@ -77,6 +77,7 @@ public class Archer extends Personnage {
      * 
      * @param c cible de l'attaque de l'archer
      */
+    @Override
     public void combattre(Creature c){
         Point2D positionCible = c.getPos();
         
