@@ -9,7 +9,7 @@ import java.util.Random;
  * Classe représentant un monstre, hérite de Créature
  * @author utaab
  */
-public class Monstre extends Creature{
+public abstract class Monstre extends Creature{
     
     /**
      *

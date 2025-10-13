@@ -8,31 +8,17 @@ package org.centrale.objet.WoE;
  *  Représente un objet
  * @author utaab
  */
-public class Objet {
-    
-    private Point2D pos;
+public class Objet extends ElementDeJeu {
     
     public Objet() {
-        this.pos = new Point2D(0,0);
+        super();
     }
     
     public Objet(Objet o) {
-        this.pos = o.pos;
+        super(o);
     }
     
     public Objet(Point2D pos) {
-        this.pos = pos;
-    }
-
-    public Point2D getPos() {
-        return pos;
-    }
-
-    public void setPos(Point2D pos) {
-        this.pos = pos;
-    }
-    
-    public void affiche() {
-        pos.affiche();
+        super(pos);
     }
 }

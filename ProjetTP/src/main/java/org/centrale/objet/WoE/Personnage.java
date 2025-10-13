@@ -7,7 +7,7 @@ package org.centrale.objet.WoE;
  * Classe de gestion des personnages
  * @author Clément
  */
-public class Personnage extends Creature {
+public abstract class Personnage extends Creature {
     //attributes
     private String nom;
     private int distAttMax;

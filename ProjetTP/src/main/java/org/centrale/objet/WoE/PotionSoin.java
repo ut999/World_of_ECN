@@ -8,9 +8,10 @@ package org.centrale.objet.WoE;
  * Objet potion de soin pouvant rendre de la vie aux créatures
  * @author utaab
  */
-public class PotionSoin extends Objet {
+public class PotionSoin extends Objet implements Utilisable {
     
     private int ptSoin;
+    private int duree;
     
     /**
      *
@@ -18,6 +19,7 @@ public class PotionSoin extends Objet {
     public PotionSoin() {
         super();
         this.ptSoin = 1;
+        this.duree = 1;
     }
     
     /**
@@ -27,16 +29,19 @@ public class PotionSoin extends Objet {
     public PotionSoin(PotionSoin p) {
         super(p);
         this.ptSoin = p.ptSoin;
+        this.duree = p.duree;
     }
 
     /**
      *
      * @param pos
      * @param ptSoin
+     * @param duree
      */
-    public PotionSoin(Point2D pos, int ptSoin) {
+    public PotionSoin(Point2D pos, int ptSoin, int duree) {
         super(pos);
         this.ptSoin = ptSoin;
+        this.duree = duree;
     }
 
     /**
@@ -63,5 +68,10 @@ public class PotionSoin extends Objet {
         System.out.println("\nAffichage d'une potion");
         System.out.println("ptSoin = " + ptSoin);
         super.affiche();
+    }
+    
+    @Override
+    public void utiliser(Creature c) {
+        
     }
 }

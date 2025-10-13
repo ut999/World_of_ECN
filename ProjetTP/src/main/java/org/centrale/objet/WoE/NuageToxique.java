@@ -5,46 +5,40 @@
 package org.centrale.objet.WoE;
 
 /**
- *  Représente un objet épée
+ *
  * @author utaab
  */
-public class Epee extends Objet implements Utilisable {
-
+public class NuageToxique extends Objet implements Deplacable, Combattant {
     /**
      *
      */
     private int degAtt;
-    private int duree;
     
     /**
      *
      */
-    public Epee() {
+    public NuageToxique() {
         super();
         this.degAtt = 5;
-        this.duree = 30;
     }
     
     /**
      *
-     * @param e
+     * @param n
      */
-    public Epee(Epee e) {
-        super(e);
-        this.degAtt = e.degAtt;
-        this.duree = e.duree;
+    public NuageToxique(NuageToxique n) {
+        super(n);
+        this.degAtt = n.degAtt;
     }
 
     /**
      *
      * @param pos
      * @param degAtt
-     * @param duree
      */
-    public Epee(Point2D pos, int degAtt, int duree) {
+    public NuageToxique(Point2D pos, int degAtt) {
         super(pos);
         this.degAtt = degAtt;
-        this.duree = duree;
     }
 
     /**
@@ -68,12 +62,22 @@ public class Epee extends Objet implements Utilisable {
      */
     @Override
     public void affiche() {
-        System.out.println("\nAffichage d'un epee");
+        System.out.println("\nAffichage d'un nuage toxique");
         super.affiche();
     }
     
+    /**
+     * 
+     */
     @Override
-    public void utiliser(Creature c) {
-        
+    public void deplacer() {
+    }
+    
+    /**
+     * 
+     * @param c
+     */
+    @Override
+    public void combattre(Creature c) {
     }
 }
