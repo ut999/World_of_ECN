@@ -9,25 +9,24 @@ import java.util.Random;
  *  Représente l'ensemble des créatures
  * @author utaab
  */
-public abstract class Creature implements Deplacable {
+public abstract class Creature extends ElementDeJeu implements Deplacable {
     
     private int ptVie;
     private int degAtt;
     private int ptPar;
     private int pageAtt;
     private int pagePar;
-    private Point2D pos;
 
     /**
      *
      */
     public Creature() {
+        super();
         this.ptVie = 100;
         this.degAtt = 10;
         this.ptPar = 5;
         this.pageAtt = 90;
         this.pagePar = 60;
-        this.pos = new Point2D(0,0);
     }
     
     /**
@@ -35,11 +34,11 @@ public abstract class Creature implements Deplacable {
      * @param c
      */
     public Creature(Creature c) {
+        super(c);
         this.ptVie = c.ptVie;
         this.degAtt = c.degAtt;
         this.ptPar = c.ptPar;
         this.pageAtt = c.pageAtt;
-        this.pos = c.pos;
     }
     
     /**
@@ -52,12 +51,12 @@ public abstract class Creature implements Deplacable {
      * @param pos
      */
     public Creature(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
+        super(pos);
         this.ptVie = ptVie;
         this.degAtt = degAtt;
         this.ptPar = ptPar;
         this.pageAtt = pageAtt;
         this.pagePar = pagePar;
-        this.pos = pos;
     }
 
     /**
@@ -141,19 +140,12 @@ public abstract class Creature implements Deplacable {
     }
     
     /**
-     *
-     * @return
+     * 
      */
-    public Point2D getPos() {
-        return pos;
-    }
-
-    /**
-     *
-     * @param pos
-     */
-    public void setPos(Point2D pos) {
-        this.pos = pos;
+    @Override
+    public void affiche() {
+        System.out.println("Nombre de points de vie actuels : " + ptVie);
+        super.affiche();
     }
 
     /**
@@ -164,15 +156,6 @@ public abstract class Creature implements Deplacable {
         Random generateur = new Random();
         int dx = generateur.nextInt(-1, 2);
         int dy = generateur.nextInt(-1, 2);
-        this.pos.translate(dx, dy);
-    }
-
-    /**
-     *
-     */
-    public void affiche() {
-        System.out.println("Nombre de points de vie actuels : " + ptVie);
-        pos.affiche();
-    }
-    
+        this.getPos().translate(dx, dy);
+    }    
 }
