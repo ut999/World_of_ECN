@@ -22,8 +22,8 @@ public class Pizza extends Nourriture {
         this.bonusPageAtt = bonusPageAtt;
     }
 
-    public Pizza(int bonusPageAtt, Point2D pos, int nbTour) {
-        super(pos, nbTour);
+    public Pizza(int bonusPageAtt, Point2D pos, int duree) {
+        super(pos, duree);
         this.bonusPageAtt = bonusPageAtt;
     }
 

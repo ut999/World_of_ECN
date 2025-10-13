@@ -14,6 +14,7 @@ public class Epee extends Objet implements Utilisable {
      *
      */
     private int degAtt;
+    private int duree;
     
     /**
      *
@@ -21,6 +22,7 @@ public class Epee extends Objet implements Utilisable {
     public Epee() {
         super();
         this.degAtt = 5;
+        this.duree = 30;
     }
     
     /**
@@ -30,16 +32,19 @@ public class Epee extends Objet implements Utilisable {
     public Epee(Epee e) {
         super(e);
         this.degAtt = e.degAtt;
+        this.duree = e.duree;
     }
 
     /**
      *
      * @param pos
      * @param degAtt
+     * @param duree
      */
-    public Epee(Point2D pos, int degAtt) {
+    public Epee(Point2D pos, int degAtt, int duree) {
         super(pos);
         this.degAtt = degAtt;
+        this.duree = duree;
     }
 
     /**

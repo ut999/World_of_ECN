@@ -25,8 +25,8 @@ public class Steroid extends Nourriture {
         this.malusPtVie = s.malusPtVie;
     }
 
-    public Steroid(Point2D pos, int nbTour, int bonusDegAtt, int malusPtVie) {
-        super(pos, nbTour);
+    public Steroid(Point2D pos, int duree, int bonusDegAtt, int malusPtVie) {
+        super(pos, duree);
         this.bonusDegAtt = bonusDegAtt;
         this.malusPtVie = malusPtVie;
     }

@@ -11,30 +11,30 @@ import java.util.Random;
  */
 public abstract class Nourriture extends Objet implements Utilisable {
     
-    private int nbTour;
+    private int duree;
 
     public Nourriture() {
         super();
         Random generateur = new Random();
-        this.nbTour = generateur.nextInt(1, 10);
+        this.duree = generateur.nextInt(5, 20);
     }
 
     public Nourriture(Nourriture n) {
         super(n);
-        this.nbTour = n.nbTour;
+        this.duree = n.duree;
     }
 
-    public Nourriture(Point2D pos, int nbTour) {
+    public Nourriture(Point2D pos, int duree) {
         super(pos);
-        this.nbTour = nbTour;
+        this.duree = duree;
     }
 
-    public int getNbTour() {
-        return nbTour;
+    public int getduree() {
+        return duree;
     }
 
-    public void setNbTour(int nbTour) {
-        this.nbTour = nbTour;
+    public void setduree(int duree) {
+        this.duree = duree;
     }
     
     @Override
