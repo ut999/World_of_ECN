@@ -15,6 +15,7 @@ public class Joueur {
     
     private Personnage personnage;
     private ArrayList<Utilisable> effets;
+    private ArrayList<Utilisable> inventaire;
 
     public Personnage getPersonnage() {
         return personnage;
@@ -31,8 +32,6 @@ public class Joueur {
     public void setEffets(ArrayList<Utilisable> effets) {
         this.effets = effets;
     }
-    
-    
 
     public World getWorld() {
         return world;
@@ -78,9 +77,20 @@ public class Joueur {
         }
     }
     
-    public void activeUtilisable(Utilisable u) {
+    public void stockerUtilisable(Utilisable u) {
+        inventaire.add(u);
+    }
+    
+    public boolean activeUtilisable(int i) {
+        if (i < 0 || i >= inventaire.size()) {
+            System.out.println("Indiquer un numero correct !");
+            return false;
+        }
+        Utilisable u = inventaire.get(i);
         effets.add(u);
         u.utiliser(this.personnage);
+        inventaire.remove(i);
+        return true;
     }
     
     public void updateEffets() {

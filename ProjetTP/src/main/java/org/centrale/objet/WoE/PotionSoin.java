@@ -72,6 +72,11 @@ public class PotionSoin extends Objet implements Utilisable {
     }
     
     @Override
+    public int getDuree() {
+        return 1;
+    }
+    
+    @Override
     public boolean finDuree() {
         return true;
     }
