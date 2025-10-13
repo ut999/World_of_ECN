@@ -8,7 +8,7 @@ package org.centrale.objet.WoE;
  *  Représente un objet épée
  * @author utaab
  */
-public class Epee extends Objet {
+public class Epee extends Objet implements Utilisable {
 
     /**
      *
@@ -65,5 +65,10 @@ public class Epee extends Objet {
     public void affiche() {
         System.out.println("\nAffichage d'un epee");
         super.affiche();
+    }
+    
+    @Override
+    public void utiliser(Creature c) {
+        
     }
 }

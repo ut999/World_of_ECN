@@ -8,7 +8,7 @@ package org.centrale.objet.WoE;
  * Objet potion de soin pouvant rendre de la vie aux créatures
  * @author utaab
  */
-public class PotionSoin extends Objet {
+public class PotionSoin extends Objet implements Utilisable {
     
     private int ptSoin;
     
@@ -63,5 +63,10 @@ public class PotionSoin extends Objet {
         System.out.println("\nAffichage d'une potion");
         System.out.println("ptSoin = " + ptSoin);
         super.affiche();
+    }
+    
+    @Override
+    public void utiliser(Creature c) {
+        
     }
 }
