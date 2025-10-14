@@ -96,7 +96,10 @@ public class TestWoE {
        System.out.println("Vie Max Personnage : " + vieMaxPersonnage);
        
        */
-       mondeTest.tourDeJeu();
+       while(mondeTest.tourDeJeu())
+       {
+            
+       }
     }
     
     public static int lectureHP(boolean erreur) throws NumberFormatException

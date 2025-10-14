@@ -13,14 +13,9 @@ import java.util.Iterator;
 public class World {
 
     /**
-     * Conteneur listant l'ensemble des objets du monde
+     *  Conteneur listant l'ensemble des éléments du jeu
      */
-    public ArrayList<Objet> objets;
-    
-    /**
-     *  Conteneur listant l'ensemble des créatures du monde
-     */
-    public ArrayList<Creature> creatures;
+    public ArrayList<ElementDeJeu> elementsDeJeu;
     
     public Joueur joueur;
 
@@ -38,8 +33,7 @@ public class World {
      * Construction du monde
      */
     public World() {        
-        objets = new ArrayList<>();
-        creatures = new ArrayList<>();
+        elementsDeJeu = new ArrayList<>();
     }
     
     /**
@@ -50,7 +44,7 @@ public class World {
         Random generateur = new Random();
         
         int idClasse = generateur.nextInt(0,5);
-        Creature nouvelleCreature = null;
+        Creature nouvelleCreature;
         
         switch(idClasse){
    
@@ -85,7 +79,7 @@ public class World {
         
         nouvelleCreature.getPos().setPosition(generateur.nextInt(0,tailleX), generateur.nextInt(0,tailleY));
         nouvelleCreature.setPtVie(generateur.nextInt(2,10));
-        creatures.add(nouvelleCreature);
+        elementsDeJeu.add(nouvelleCreature);
     }
     
     /**
@@ -121,7 +115,7 @@ public class World {
         for (int i = 0; i<nb_potion; i++) {
             PotionSoin potion = new PotionSoin();
             potion.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
-            objets.add(potion);
+            elementsDeJeu.add(potion);
         }
     }
     
@@ -169,9 +163,12 @@ public class World {
      */
     public int calculPointsDeVieTotauxTaille(){
         int pvtotaux = 0;
-        for(int i=0; i<creatures.size();i++)
+        for(int i=0; i<elementsDeJeu.size();i++)
         {   
-            pvtotaux+=creatures.get(i).getPtVie();
+            if(elementsDeJeu.get(i) instanceof Creature)
+            {
+                pvtotaux+=((Creature)elementsDeJeu.get(i)).getPtVie();
+            }
         }
         return pvtotaux;
     }
@@ -182,8 +179,11 @@ public class World {
      */
     public int calculPointsDeVieTotauxIter(){
         int pvtotaux = 0;
-        for(Creature c : creatures) {
-            pvtotaux+=c.getPtVie();
+        for(ElementDeJeu e : elementsDeJeu) {
+            if(e instanceof Creature)
+            {
+                pvtotaux+=((Creature)e).getPtVie();
+            }
         }
         return pvtotaux;
     }
@@ -192,24 +192,28 @@ public class World {
      *  Fonction réalisant un tour du jeu, pour le moment chaque personnage se déplace
      * et les postions consomables sont consommées.
      */
-    public void tourDeJeu() {
-        joueur.tourJeu(1);
+    public boolean tourDeJeu() {
         
-        for(Creature c : creatures) {
-            deplaceSansCollisions(c);
+        boolean continuePlaying;
+        continuePlaying = joueur.tourJeu(1);
+        
+        for(ElementDeJeu e : elementsDeJeu) {
+            if(e instanceof Creature)
+            {
+                deplaceSansCollisions((Creature)e);
+            }
         }
         consommerPotion();
+        
+        return continuePlaying;
     }
     
     /**
      *  Affiche le monden on séoare affiche qui donne juste les infos en texte et display qui montre de façon visuelle et belle le monde
      */
     public void afficheWorld() {
-        for(Creature c : creatures) {
-            c.affiche();
-        }
-        for(Objet o : objets){
-            o.affiche();
+        for(ElementDeJeu e : elementsDeJeu){
+            e.affiche();
         }
     }
     
@@ -227,55 +231,62 @@ public class World {
             System.out.print("J");
             return;
         }
-        for(Creature c : creatures) {
-            if(!p.equals(c.getPos()))
+        for(ElementDeJeu e : elementsDeJeu) {
+            if(!p.equals(e.getPos()))
             {
               continue;  
             }
-            if(c instanceof Archer)
+            if(e instanceof Archer)
             {
                 System.out.print("A");
                 return;
             }
-            if(c instanceof Guerrier)
+            if(e instanceof Guerrier)
             {
                 System.out.print("G");
                 return;
             }
-            if(c instanceof Paysan)
+            if(e instanceof Paysan)
             {
-                System.out.print("A");
+                System.out.print("F");
                 return;
             }
-            if(c instanceof Loup)
+            if(e instanceof Loup)
             {
                 System.out.print("W");
                 return;
             }
-            if(c instanceof Lapin)
+            if(e instanceof Lapin)
             {
                 System.out.print("L");
                 return;
             }
-            System.out.print("C");
-            return;
-        }
-        for(Objet o : objets){
-            if(!p.equals(o.getPos()))
-            {
-              continue;  
-            }
-            if(o instanceof PotionSoin)
+            if(e instanceof PotionSoin)
             {
                 System.out.print("H");
                 return;
             }
-            if(o instanceof Epee)
+            if(e instanceof Epee)
             {
                 System.out.print("E");
                 return;
             }
-            System.out.print("O");
+            if(e instanceof NuageToxique)
+            {
+                System.out.print("N");
+                return;
+            }
+            if(e instanceof Steroid)
+            {
+                System.out.print("S");
+                return;
+            }
+            if(e instanceof Pizza)
+            {
+                System.out.print("P");
+                return;
+            }
+            System.out.print("E");
             return;
         }
         
@@ -284,11 +295,29 @@ public class World {
     
     void displayZone(Point2D p, int rayon)
     {
-        Point2D tileActuelle= new Point2D();
         int px = p.getX();
         int py = p.getY();
+        
+        //deplacement de la zone selectionne si le point de centre est trop proche d'un bord, on essaie d'avoir au plus 2 rangees de X
+        
+        px = Math.max(px, rayon-2);
+        px = Math.min(px, tailleX-rayon+1);
+        
+        py = Math.max(py, rayon-2);
+        py = Math.min(py, tailleY-rayon+1);
+        
+        //affichage
+        Point2D tileActuelle= new Point2D();
+        
+        System.out.print(" ");
+        for(int dy = -rayon-1; dy <=rayon;dy++)
+        {
+            System.out.print("- ");
+        }
+        System.out.println(" ");
         for(int dy = -rayon; dy <=rayon;dy++)
         {
+            System.out.print("|");
             for(int dx = -rayon; dx <=rayon;dx++)
             {
                 tileActuelle.setPosition(px,py);
@@ -297,8 +326,14 @@ public class World {
                 
                 System.out.print(" ");
             }
+            System.out.print("|");
             System.out.println();
         }
+        for(int dy = -rayon-1; dy <=rayon;dy++)
+        {
+            System.out.print("- ");
+        }
+        System.out.println();
     }
     
     //la strategie que l'on decide de faire pour les deplacements aleatoires c'est que lors de world possède 
@@ -308,12 +343,11 @@ public class World {
     //renvoie aussi faux si la case est en dehors du monde
 
     /**
-     *  Fonction vérifiant qu'une créature est seule sur sa case
-     * Vérifie aussi que la créature est seule sur sa nouvelle case
+     *  Fonction vérifiant qu'une créature est seule sur sa case ainsi qu'elle soit bien dans les coordonnées du monde
      * @param c créature dont on vérifie si elle est seule ou pas
      * @return boolean vrai si la créature est seule sur sa case
      */
-    public boolean estCreatureSeuleSurCase(Creature c){
+    public boolean estPositionCreatureLegit(Creature c){
         int cx = c.getPos().getX();
         int cy = c.getPos().getY();
         
@@ -322,9 +356,9 @@ public class World {
             return false;
         }
         
-        for(Creature icreature:creatures)
+        for(ElementDeJeu e : elementsDeJeu)
         {
-            if(icreature.getPos().equals(c.getPos()) && c!=icreature)
+            if(e.getPos().equals(c.getPos()) && c!=e && e instanceof Creature)
             {
                 return false;
             }
@@ -346,7 +380,7 @@ public class World {
         for(int iTentative = 0; iTentative<=limiteTentativesDeplacement; iTentative++)
         {
                 c.deplacer();
-                if(!estCreatureSeuleSurCase(c))
+                if(!estPositionCreatureLegit(c))
                 {
                     //System.out.println("Collision ou sortie de carte detectee en x:" + 
                     //        c.getPos().getX() + " y : " + c.getPos().getY());
@@ -357,5 +391,18 @@ public class World {
                     return;
                 }
         }
+    }
+    
+    //renvoie l'élément de jeu présent sur une case, renvoie null si il n'y en a pas
+    //attention la fonction est longue à s'executer
+    public ElementDeJeu findElementJeu(Point2D p)
+    {
+        for(ElementDeJeu e : elementsDeJeu) {
+            if(p.equals(e.getPos()))
+            {
+              return e;
+            }
+        }
+        return null;
     }
 }
