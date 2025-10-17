@@ -61,16 +61,41 @@ public class World {
     }
     
     /**
+     *  Créer un objet aléatoire, elle est de type aléatoire (nourriture, potionSoin, ...)
+     *  Elle possède une position aléatoire sur la carte.
+     */
+    public void creerObjetAlea(){
+        Random generateur = new Random();
+        
+        int idClasse = generateur.nextInt(0,3);
+        Objet nouvelleObjet;
+        
+        nouvelleObjet = switch (idClasse) {
+            case 0 -> new Epee();
+            case 1 -> new PotionSoin();
+            case 2 -> new Pizza();
+            default -> new Steroid();
+        };
+        
+        nouvelleObjet.getPos().setPosition(generateur.nextInt(0,tailleX), generateur.nextInt(0,tailleY));
+        elementsDeJeu.add(nouvelleObjet);
+    }
+    
+    /**
      *  Création d'un monde random, pour le moment il contient un certain nombre de potion ainsi qu'un certain nombre 
      * de créatures aléatoires
      */
     public void creerMondeAlea() {
-        Random generateur = new Random();
-        
         //Creation des créatures aléatoires
         for(int icrea=0;icrea<100;icrea++)
         {
             creerCreatureAlea();
+        }
+        
+        //Creation des objets aléatoires
+        for(int iobj=0;iobj<50;iobj++)
+        {
+            creerObjetAlea();
         }
         
         Personnage persoJoueur = new Archer();
@@ -87,52 +112,6 @@ public class World {
                 };
         robin.setNom(banqueDeNoms[generateur.nextInt(banqueDeNoms.length)]);
         */
-        
-        //Initialisation des potions
-        int nb_potion = generateur.nextInt(5,20);
-        for (int i = 0; i<nb_potion; i++) {
-            PotionSoin potion = new PotionSoin();
-            potion.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
-            elementsDeJeu.add(potion);
-        }
-    }
-    
-    /**
-     *  Fonction permettant de consommer les potions sur lesquels un personnage est posé
-     */
-    public void consommerPotion() {
-        
-        System.out.println("\nConsommerPotion");
-        
-        //La fonction remove supprime la premierer occurence de la liste, donc si deux objet identique existe, erreur de memoire
-        /*for (PotionSoin potion : potions) {
-        if (robin.getPos().equals(potion.getPos())) {
-        robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
-        potions.remove(potion);
-        System.out.println("robin a une point de vie en plus !");
-        }
-        }*/
-        
-        /*
-        
-        for (int i = potions.size()-1; i>=0; i--) {
-            if (robin.getPos().equals(potions.get(i).getPos())) {
-                robin.setPtVie(potions.get(i).getPtSoin() + robin.getPtVie());
-                potions.remove(i);
-                System.out.println("robin gagne " + potions.get(i).getPtSoin() + " point de vie !");
-            }
-        }
-        */
-        
-        // Utilisation de l'iterator pour eviter l'ambiguite d'indexation lors de suppression des elements
-        /*Iterator<PotionSoin> it = potions.iterator();
-        while (it.hasNext()) {
-        PotionSoin potion = it.next();
-        if (robin.getPos().equals(potion.getPos())) {
-        robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
-        it.remove();
-        }
-        }*/
     }
     
     /**
@@ -158,7 +137,7 @@ public class World {
     public int calculPointsDeVieTotauxIter(){
         int pvtotaux = 0;
         for(ElementDeJeu e : elementsDeJeu) {
-            if(e instanceof Creature)
+            if (e instanceof Creature)
             {
                 pvtotaux+=((Creature)e).getPtVie();
             }
@@ -168,7 +147,8 @@ public class World {
     
     /**
      *  Fonction réalisant un tour du jeu, pour le moment chaque personnage se déplace
-     * et les postions consomables sont consommées.
+     * et les postions consomables sont consommées
+     * @return .
      */
     public boolean tourDeJeu() {
         

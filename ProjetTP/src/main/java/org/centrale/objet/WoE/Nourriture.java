@@ -16,7 +16,7 @@ public abstract class Nourriture extends Objet implements Utilisable {
     public Nourriture() {
         super();
         Random generateur = new Random();
-        this.duree = generateur.nextInt(5, 20);
+        this.duree = generateur.nextInt(5, 10);
     }
 
     public Nourriture(Nourriture n) {

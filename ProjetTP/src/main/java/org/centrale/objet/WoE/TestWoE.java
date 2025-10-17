@@ -4,6 +4,9 @@
 
 package org.centrale.objet.WoE;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Classe main servant à faire des tests sur le projet
  * @author utaab
@@ -16,74 +19,79 @@ public class TestWoE {
      */
     public static void main(String[] args) {
         World mondeTest = new World();
-        
-       //Test slide 23; potion
-       /*
-       System.out.println("Creation du monde aleatoire");
-       mondeTest.creerMondeAlea();
-       
-       mondeTest.robin.setPos(new Point2D(mondeTest.potions.get(0).getPos()));
-       
-       mondeTest.robin.affiche();
-       mondeTest.potions.get(0).affiche();
-       System.out.println("\nNombre de porion : " + mondeTest.potions.size());
-       
-       mondeTest.consommerPotion();
-       
-       mondeTest.robin.affiche();
-       
-       System.out.println("\nNombre de porion : " + mondeTest.potions.size());
-       */
-       /*
-       
-       int nbPersos = 100;
-       
-       System.out.println("Creation des " + nbPersos + " personnages : ");
-       for(int i=0;i<nbPersos;i++)
-       {
+
+        //Test slide 23; potion
+        /*
+        System.out.println("Creation du monde aleatoire");
+        mondeTest.creerMondeAlea();
+
+        mondeTest.robin.setPos(new Point2D(mondeTest.potions.get(0).getPos()));
+
+        mondeTest.robin.affiche();
+        mondeTest.potions.get(0).affiche();
+        System.out.println("\nNombre de porion : " + mondeTest.potions.size());
+
+        mondeTest.consommerPotion();
+
+        mondeTest.robin.affiche();
+
+        System.out.println("\nNombre de porion : " + mondeTest.potions.size());
+        */
+        /*
+
+        int nbPersos = 100;
+
+        System.out.println("Creation des " + nbPersos + " personnages : ");
+        for(int i=0;i<nbPersos;i++)
+        {
            mondeTest.ajouterPersoAlea();
-       }       
-       System.out.println("\ncalcul avec taille");
-       long debutTaille = System.nanoTime();
-       int pvtotTaille = mondeTest.calculPointsDeVieTotauxTaille();
-       long finTaille = System.nanoTime();
-       System.out.println("temps iter en ms : " + (finTaille-debutTaille)*10E-6);
-       
-       System.out.println("\ncalcul avec iteration");
-       long debutIt = System.nanoTime();
-       int pvtotIter = mondeTest.calculPointsDeVieTotauxIter();
-       long finIt = System.nanoTime();
-       System.out.println("temps iter en ms : " + (finIt-debutIt)*10E-6);
-       */
-       mondeTest.creerMondeAlea();
-       
-       /*
-       
-       try {           
+        }       
+        System.out.println("\ncalcul avec taille");
+        long debutTaille = System.nanoTime();
+        int pvtotTaille = mondeTest.calculPointsDeVieTotauxTaille();
+        long finTaille = System.nanoTime();
+        System.out.println("temps iter en ms : " + (finTaille-debutTaille)*10E-6);
+
+        System.out.println("\ncalcul avec iteration");
+        long debutIt = System.nanoTime();
+        int pvtotIter = mondeTest.calculPointsDeVieTotauxIter();
+        long finIt = System.nanoTime();
+        System.out.println("temps iter en ms : " + (finIt-debutIt)*10E-6);
+        */
+        mondeTest.creerMondeAlea();
+
+        Epee e = new Epee();
+        PotionSoin p = new PotionSoin();
+        Pizza pi = new Pizza();
+        Steroid s = new Steroid();
+        mondeTest.joueur.setInventaire(new ArrayList<Utilisable>(Arrays.asList(e, p, pi, s)));
+        /*
+
+        try {           
             Archer archer = new Archer();
             archer = null;
             int ptDeVie = archer.getPtVie();
-       }
-       catch (NullPointerException exception) { 
+        }
+        catch (NullPointerException exception) { 
            System.out.println(exception);
-       }
-       finally{
+        }
+        finally{
            System.out.println("Finally");
-       }
-       
+        }
+
         try {           
             int number = 5/0;
         }
         catch (ArithmeticException exception) { 
            System.out.println(exception);
         }
-       */
-       
-       /*
-       int vieMaxPersonnage = -1;
-       boolean erreur = true;
-       while(vieMaxPersonnage==-1)
-       {
+        */
+
+        /*
+        int vieMaxPersonnage = -1;
+        boolean erreur = true;
+        while(vieMaxPersonnage==-1)
+        {
             try {
                 vieMaxPersonnage = lectureHP(erreur);
                 System.out.println("reussite de la lecture");
@@ -92,14 +100,14 @@ public class TestWoE {
                System.out.println("echec de la lecture : " + exception);
                erreur = false;
             }
-       }
-       System.out.println("Vie Max Personnage : " + vieMaxPersonnage);
-       
-       */
-       while(mondeTest.tourDeJeu())
-       {
-            
-       }
+        }
+        System.out.println("Vie Max Personnage : " + vieMaxPersonnage);
+
+        */
+        while(mondeTest.tourDeJeu())
+        {
+
+        }
     }
     
     public static int lectureHP(boolean erreur) throws NumberFormatException

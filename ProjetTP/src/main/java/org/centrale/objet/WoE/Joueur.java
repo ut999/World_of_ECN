@@ -35,6 +35,14 @@ public class Joueur {
         this.effets = effets;
     }
 
+    public ArrayList<Utilisable> getInventaire() {
+        return inventaire;
+    }
+
+    public void setInventaire(ArrayList<Utilisable> inventaire) {
+        this.inventaire = inventaire;
+    }
+
     public World getWorld() {
         return world;
     }
@@ -46,12 +54,16 @@ public class Joueur {
     public Joueur()
     {
         personnage = null;
+        this.effets = new ArrayList<>();
+        this.inventaire = new ArrayList<>();
         world = null;
     }
     
     public Joueur( Personnage personnage, World world)
     {
         this.personnage = personnage;
+        this.effets = new ArrayList<>();
+        this.inventaire = new ArrayList<>();
         this.world = world;
     }
     
@@ -77,7 +89,7 @@ public class Joueur {
                 {
                     return tourJeu(); 
                 }}
-                case "I", "i" -> combatJoueur(sc);
+                case "I", "i" -> ouvrirInventaireJoueur(sc);
                 case "Q", "q" -> {
                     return false;
                 }
@@ -100,7 +112,7 @@ public class Joueur {
     }
     
     public void updateEffets() {
-        Iterator<Utilisable> it = effets.iterator();
+        Iterator<Utilisable> it = this.effets.iterator();
         while (it.hasNext()) {
             Utilisable u = it.next();
             if (u.finDuree()) {
@@ -112,24 +124,28 @@ public class Joueur {
     
     public void ouvrirInventaireJoueur(Scanner sc)
     {
-        System.out.println("Ouverture Inventaire : ");
-        int i = 0;
-        
-        //afficher l'inventaire
-        for(Utilisable u : this.inventaire)
-        {
-            System.out.println("Objet n" + i);
-            u.afficheInventaire();
-            ++i;
+        if (this.inventaire.isEmpty()) {
+            System.out.println("L'inventaire est vide ! Vous passez un tour.");
+        } else {
+            System.out.println("Ouverture Inventaire : ");
+            int i = 0;
+
+            //afficher l'inventaire
+            for(Utilisable u : this.inventaire)
+            {
+                System.out.println("\nObjet n" + i);
+                u.afficheInventaire();
+                ++i;
+            }
+
+            int targetIndex = -1;
+            while(targetIndex < 0 || targetIndex >= this.inventaire.size())
+            {
+                System.out.println("\nChoisissez un item entre 0 et " + (this.inventaire.size()-1));
+                targetIndex = sc.nextInt();
+            }
+            activeUtilisable(targetIndex);
         }
-        
-        int targetIndex = -1;
-        while(targetIndex < 0 || targetIndex >= this.inventaire.size())
-        {
-            System.out.println("Choisissez un item entre 0 et " + (this.inventaire.size()-1));
-            targetIndex = sc.nextInt();
-        }
-        activeUtilisable(targetIndex);
     }
     
     public boolean combatJoueur(Scanner sc)
