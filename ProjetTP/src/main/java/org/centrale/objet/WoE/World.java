@@ -30,6 +30,16 @@ public class World {
     static final public int tailleY = 50;
     
     /**
+     *  Nombre de creature
+     */
+    static final public int NB_CREATURE = 100;
+    
+    /**
+     *  Nombre d'objet
+     */
+    static final public int NB_OBJET = 50;
+    
+    /**
      * Construction du monde
      */
     public World() {        
@@ -87,13 +97,13 @@ public class World {
      */
     public void creerMondeAlea() {
         //Creation des créatures aléatoires
-        for(int icrea=0;icrea<100;icrea++)
+        for(int icrea=0;icrea<NB_CREATURE;icrea++)
         {
             creerCreatureAlea();
         }
         
         //Creation des objets aléatoires
-        for(int iobj=0;iobj<100;iobj++)
+        for(int iobj=0;iobj<NB_OBJET;iobj++)
         {
             creerObjetAlea();
         }
