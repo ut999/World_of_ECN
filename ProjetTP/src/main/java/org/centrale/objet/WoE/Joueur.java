@@ -71,15 +71,29 @@ public class Joueur {
     {
         updateEffets();
         
+        System.out.println("\n| Legende |");
+        System.out.println("A : archer");
+        System.out.println("E : epee");
+        System.out.println("G : geurrier");
+        System.out.println("J : joueur");
+        System.out.println("L : lapin");
+        System.out.println("W : loup");
+        System.out.println("N : nuage toxique");
+        System.out.println("F : paysan");
+        System.out.println("P : pizza");
+        System.out.println("H : PointSoin");
+        System.out.println("S : steroid");
+        
+        System.out.println("\n| Map |");
         world.displayZone(personnage.getPos(), 8);
         
         //afficher les donnees du personnage
         System.out.println("\n| Status |");
         System.out.println("HP : " + this.personnage.getPtVie()); 
         System.out.println("Att : " + this.personnage.getDegAtt());
-        System.out.println("Att% " + this.personnage.getPageAtt()); 
+        System.out.println("Att% : " + this.personnage.getPageAtt()); 
         System.out.println("Def : " + this.personnage.getPtPar());
-        System.out.println("Def%" + this.personnage.getPagePar());
+        System.out.println("Def% : " + this.personnage.getPagePar());
         System.out.println("Range : " + this.personnage.getDistAttMax());
         
         System.out.println("\nSelectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'Q' Quitter");
@@ -142,7 +156,7 @@ public class Joueur {
             //afficher l'inventaire
             for(Utilisable u : this.inventaire)
             {
-                System.out.println("| Objet n" + i + " |");
+                System.out.println("\n| Objet n" + i + " |");
                 u.afficheInventaire();
                 ++i;
             }
@@ -171,7 +185,7 @@ public class Joueur {
         int i = 0;
         for(Creature c : cibles)
         {
-            System.out.println("Cible n" + i);
+            System.out.println("\n| Cible n" + i + "|");
             c.affiche();
             ++i;
         }
@@ -179,7 +193,7 @@ public class Joueur {
         int targetIndex = -1;
         while(targetIndex < 0 || targetIndex >= cibles.size())
         {
-            System.out.println("Choisissez une cible entre 0 et " + (cibles.size()-1));
+            System.out.println("\nChoisissez une cible entre 0 et " + (cibles.size()-1));
             targetIndex = sc.nextInt();
         }
         ((Combattant)personnage).combattre(cibles.get(targetIndex));

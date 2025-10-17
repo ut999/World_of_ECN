@@ -165,7 +165,7 @@ public class Archer extends Personnage implements Combattant {
      */
     @Override
     public void affiche() {
-        System.out.println("\nArcher");
+        System.out.println("Archer (A)");
         super.affiche();
     }
 

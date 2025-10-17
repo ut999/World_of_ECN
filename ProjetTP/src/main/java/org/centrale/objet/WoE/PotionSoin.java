@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.WoE;
 
+import java.util.Random;
+
 /**
  * Objet potion de soin pouvant rendre de la vie aux créatures
  * @author utaab
@@ -17,7 +19,8 @@ public class PotionSoin extends Objet implements Utilisable {
      */
     public PotionSoin() {
         super();
-        this.bonusPtVie = 1;
+        Random generateur = new Random();
+        this.bonusPtVie = generateur.nextInt(1, 3);
     }
     
     /**

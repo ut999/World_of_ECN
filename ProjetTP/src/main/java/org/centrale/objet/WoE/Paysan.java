@@ -45,7 +45,7 @@ public class Paysan extends Personnage {
      */
     @Override
     public void affiche() {
-        System.out.println("\nPaysan");
+        System.out.println("Paysan (P)");
         super.affiche();
     }
     
