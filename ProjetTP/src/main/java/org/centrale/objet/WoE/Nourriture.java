@@ -29,6 +29,7 @@ public abstract class Nourriture extends Objet implements Utilisable {
         this.duree = duree;
     }
 
+    @Override
     public int getDuree() {
         return duree;
     }
@@ -38,16 +39,8 @@ public abstract class Nourriture extends Objet implements Utilisable {
     }
     
     @Override
-    public void utiliser(Creature c) {
-    }
-    
-    @Override
     public boolean finDuree() {
-        this.duree -= 1;
+        this.duree--;
         return (this.duree == 0);
-    }
-    
-    @Override
-    public void finEffet(Creature c) {
     }
 }

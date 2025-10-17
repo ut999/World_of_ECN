@@ -14,15 +14,15 @@ public class Epee extends Objet implements Utilisable {
      *
      */
     private int bonusDegAtt;
-    private int durabilite;
+    private int duree;
     
     /**
      *
      */
     public Epee() {
         super();
-        this.bonusDegAtt = 5;
-        this.durabilite = 20;
+        this.bonusDegAtt = 2;
+        this.duree = 30;
     }
     
     /**
@@ -32,7 +32,7 @@ public class Epee extends Objet implements Utilisable {
     public Epee(Epee e) {
         super(e);
         this.bonusDegAtt = e.bonusDegAtt;
-        this.durabilite = e.durabilite;
+        this.duree = e.duree;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Epee extends Objet implements Utilisable {
     public Epee(Point2D pos, int degAtt, int duree) {
         super(pos);
         this.bonusDegAtt = degAtt;
-        this.durabilite = duree;
+        this.duree = duree;
     }
 
     /**
@@ -64,11 +64,11 @@ public class Epee extends Objet implements Utilisable {
     }
 
     public int getDurabilite() {
-        return durabilite;
+        return duree;
     }
 
     public void setdDurabilite(int duree) {
-        this.durabilite = duree;
+        this.duree = duree;
     }
     
     /**
@@ -81,19 +81,26 @@ public class Epee extends Objet implements Utilisable {
     }
     
     @Override
+    public void afficheInventaire() {
+        System.out.println("Epee");
+        System.out.println("bonus sur le point d'attaque : " + this.bonusDegAtt);
+        System.out.println("duree : " + this.duree + " tour");
+    }
+    
+    @Override
     public void utiliser(Creature c) {
         c.setDegAtt(c.getDegAtt() + this.bonusDegAtt);
     }
     
     @Override
     public int getDuree() {
-        return this.durabilite;
+        return this.duree;
     }
     
     @Override
     public boolean finDuree() {
-        //decrementer a chaque combat qu lieu de chaque tour
-        return (this.durabilite == 0);
+        this.duree--;
+        return (this.duree == 0);
     }
     
     @Override
