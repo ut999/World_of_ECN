@@ -61,13 +61,13 @@ public class Joueur {
                 
         world.displayZone(personnage.getPos(), 8);
         
-        System.out.println("Selectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'Q' Quitter");
+        System.out.println("Selectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'L' Load, 'S' Save, 'Q' Quitter");
         
         Scanner sc = new Scanner(System.in);
         String action = "";
         
         List<String> actionsPossible = 
-                new ArrayList<>(Arrays.asList("C", "c", "D", "d", "I", "i","Q","q"));
+                new ArrayList<>(Arrays.asList("C", "c", "D", "d", "I", "i","L","l","Q","q"));
         while(!actionsPossible.contains(action))
         {
             action = sc.nextLine();
