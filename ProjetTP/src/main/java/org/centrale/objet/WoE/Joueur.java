@@ -57,7 +57,8 @@ public class Joueur {
     
     public boolean tourJeu()
     {
-        
+        updateEffets();
+                
         world.displayZone(personnage.getPos(), 8);
         
         System.out.println("Selectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'Q' Quitter");
@@ -91,16 +92,11 @@ public class Joueur {
         inventaire.add(u);
     }
     
-    public boolean activeUtilisable(int i) {
-        if (i < 0 || i >= inventaire.size()) {
-            System.out.println("Indiquer un numero correct !");
-            return false;
-        }
+    public void activeUtilisable(int i) {
         Utilisable u = inventaire.get(i);
         effets.add(u);
         u.utiliser(this.personnage);
         inventaire.remove(i);
-        return true;
     }
     
     public void updateEffets() {
@@ -116,13 +112,24 @@ public class Joueur {
     
     public void ouvrirInventaireJoueur(Scanner sc)
     {
-        System.out.println("Ouverture Inventaire");
+        System.out.println("Ouverture Inventaire : ");
+        int i = 0;
+        
         //afficher l'inventaire
-        for(Utilisable u : inventaire)
+        for(Utilisable u : this.inventaire)
         {
+            System.out.println("Objet n" + i);
             u.afficheInventaire();
+            ++i;
         }
         
+        int targetIndex = -1;
+        while(targetIndex < 0 || targetIndex >= this.inventaire.size())
+        {
+            System.out.println("Choisissez un item entre 0 et " + (this.inventaire.size()-1));
+            targetIndex = sc.nextInt();
+        }
+        activeUtilisable(targetIndex);
     }
     
     public boolean combatJoueur(Scanner sc)
@@ -136,11 +143,12 @@ public class Joueur {
         
         System.out.println("Liste des " + cibles.size() +" cibles a portee");
         
-        int i =0;
+        int i = 0;
         for(Creature c : cibles)
         {
             System.out.println("Cible n" + i);
             c.affiche();
+            ++i;
         }
         
         int targetIndex = -1;

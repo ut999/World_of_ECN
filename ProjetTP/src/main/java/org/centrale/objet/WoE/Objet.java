@@ -21,6 +21,4 @@ public abstract class Objet extends ElementDeJeu {
     public Objet(Point2D pos) {
         super(pos);
     }
-    
-    public abstract void afficheInventaire();
 }

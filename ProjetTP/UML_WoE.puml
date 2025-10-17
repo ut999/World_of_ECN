@@ -1,0 +1,80 @@
+@startuml
+abstract class org.centrale.objet.WoE.Creature
+abstract class org.centrale.objet.WoE.ElementDeJeu
+abstract class org.centrale.objet.WoE.Monstre
+abstract class org.centrale.objet.WoE.Nourriture
+abstract class org.centrale.objet.WoE.Personnage
+annotation java.lang.Override
+class java.util.ArrayList
+class java.util.Iterator
+class java.util.Random
+class java.util.Scanner
+class org.centrale.objet.WoE.Archer
+class org.centrale.objet.WoE.Epee
+class org.centrale.objet.WoE.Guerrier
+class org.centrale.objet.WoE.Joueur
+class org.centrale.objet.WoE.Lapin
+class org.centrale.objet.WoE.Loup
+class org.centrale.objet.WoE.NuageToxique
+class org.centrale.objet.WoE.Objet
+class org.centrale.objet.WoE.Paysan
+class org.centrale.objet.WoE.Pizza
+class org.centrale.objet.WoE.Point2D
+class org.centrale.objet.WoE.PotionSoin
+class org.centrale.objet.WoE.Steroid
+class org.centrale.objet.WoE.TestWoE
+class org.centrale.objet.WoE.World
+interface org.centrale.objet.WoE.Combattant
+interface org.centrale.objet.WoE.Deplacable
+interface org.centrale.objet.WoE.Utilisable
+org.centrale.objet.WoE.Creature --|> org.centrale.objet.WoE.ElementDeJeu
+org.centrale.objet.WoE.Creature ..> java.lang.Override
+org.centrale.objet.WoE.Creature ..> java.util.Random
+org.centrale.objet.WoE.Creature --|> org.centrale.objet.WoE.Deplacable
+org.centrale.objet.WoE.Monstre --|> org.centrale.objet.WoE.Creature
+org.centrale.objet.WoE.Monstre ..> java.lang.Override
+org.centrale.objet.WoE.Monstre ..> java.util.Random
+org.centrale.objet.WoE.Nourriture ..> java.lang.Override
+org.centrale.objet.WoE.Nourriture ..> java.util.Random
+org.centrale.objet.WoE.Nourriture --|> org.centrale.objet.WoE.Objet
+org.centrale.objet.WoE.Nourriture --|> org.centrale.objet.WoE.Utilisable
+org.centrale.objet.WoE.Personnage --|> org.centrale.objet.WoE.Creature
+org.centrale.objet.WoE.Personnage ..> java.lang.Override
+org.centrale.objet.WoE.Archer --|> org.centrale.objet.WoE.Personnage
+org.centrale.objet.WoE.Archer ..> java.lang.Override
+org.centrale.objet.WoE.Archer ..> java.util.Random
+org.centrale.objet.WoE.Archer --|> org.centrale.objet.WoE.Combattant
+org.centrale.objet.WoE.Epee ..> java.lang.Override
+org.centrale.objet.WoE.Epee --|> org.centrale.objet.WoE.Objet
+org.centrale.objet.WoE.Epee --|> org.centrale.objet.WoE.Utilisable
+org.centrale.objet.WoE.Guerrier --|> org.centrale.objet.WoE.Personnage
+org.centrale.objet.WoE.Guerrier ..> java.lang.Override
+org.centrale.objet.WoE.Guerrier ..> java.util.Random
+org.centrale.objet.WoE.Guerrier --|> org.centrale.objet.WoE.Combattant
+org.centrale.objet.WoE.Joueur ..> java.util.ArrayList
+org.centrale.objet.WoE.Joueur ..> java.util.Iterator
+org.centrale.objet.WoE.Joueur ..> java.util.Scanner
+org.centrale.objet.WoE.Lapin --|> org.centrale.objet.WoE.Monstre
+org.centrale.objet.WoE.Lapin ..> java.lang.Override
+org.centrale.objet.WoE.Loup --|> org.centrale.objet.WoE.Monstre
+org.centrale.objet.WoE.Loup ..> java.lang.Override
+org.centrale.objet.WoE.Loup ..> java.util.Random
+org.centrale.objet.WoE.Loup --|> org.centrale.objet.WoE.Combattant
+org.centrale.objet.WoE.NuageToxique ..> java.lang.Override
+org.centrale.objet.WoE.NuageToxique --|> org.centrale.objet.WoE.Objet
+org.centrale.objet.WoE.NuageToxique --|> org.centrale.objet.WoE.Combattant
+org.centrale.objet.WoE.NuageToxique --|> org.centrale.objet.WoE.Deplacable
+org.centrale.objet.WoE.Objet --|> org.centrale.objet.WoE.ElementDeJeu
+org.centrale.objet.WoE.Paysan --|> org.centrale.objet.WoE.Personnage
+org.centrale.objet.WoE.Paysan ..> java.lang.Override
+org.centrale.objet.WoE.Pizza --|> org.centrale.objet.WoE.Nourriture
+org.centrale.objet.WoE.Pizza ..> java.lang.Override
+org.centrale.objet.WoE.PotionSoin ..> java.lang.Override
+org.centrale.objet.WoE.PotionSoin --|> org.centrale.objet.WoE.Objet
+org.centrale.objet.WoE.PotionSoin --|> org.centrale.objet.WoE.Utilisable
+org.centrale.objet.WoE.Steroid --|> org.centrale.objet.WoE.Nourriture
+org.centrale.objet.WoE.Steroid ..> java.lang.Override
+org.centrale.objet.WoE.World ..> java.util.ArrayList
+org.centrale.objet.WoE.World ..> java.util.Iterator
+org.centrale.objet.WoE.World ..> java.util.Random
+@enduml

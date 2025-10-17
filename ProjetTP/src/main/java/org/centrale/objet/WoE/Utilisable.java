@@ -17,4 +17,6 @@ public interface Utilisable {
     public boolean finDuree();
     
     public void finEffet(Creature c);
+    
+    public void afficheInventaire();
 }

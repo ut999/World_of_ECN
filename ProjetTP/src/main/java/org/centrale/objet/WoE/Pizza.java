@@ -14,7 +14,7 @@ public class Pizza extends Nourriture {
 
     public Pizza() {
         super();
-        this.bonusPageAtt = 30;
+        this.bonusPageAtt = 50;
     }
 
     public Pizza(int bonusPageAtt, Nourriture n) {
@@ -43,6 +43,13 @@ public class Pizza extends Nourriture {
     @Override
     public void finEffet(Creature c) {
         c.setPageAtt(c.getPageAtt() - this.bonusPageAtt);
+    }
+    
+    @Override
+    public void afficheInventaire() {
+        System.out.println("Pizza");
+        System.out.println("bonus sur le pourcentage de reussite d'une attaque : " + this.bonusPageAtt);
+        System.out.println("duree : " + super.getDuree() + " tour");
     }
     
     @Override
