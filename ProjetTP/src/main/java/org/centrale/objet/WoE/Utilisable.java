@@ -14,6 +14,8 @@ public interface Utilisable {
     
     public int getDuree();
     
+    public Point2D getPos();
+    
     public boolean finDuree();
     
     public void finEffet(Creature c);

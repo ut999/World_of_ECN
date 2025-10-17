@@ -105,7 +105,7 @@ public class Loup extends Monstre implements Combattant {
      */
     @Override
     public void affiche() {
-        System.out.println("\nLoup");
+        System.out.println("Loup (W)");
         super.affiche();
     }
     

@@ -40,6 +40,16 @@ public class World {
     static final public int tailleY = 50;
     
     /**
+     *  Nombre de creature
+     */
+    static final public int NB_CREATURE = 100;
+    
+    /**
+     *  Nombre d'objet
+     */
+    static final public int NB_OBJET = 50;
+    
+    /**
      * Construction du monde
      */
     public World() {        
@@ -246,7 +256,7 @@ public class World {
     public void creerObjetAlea(){
         Random generateur = new Random();
         
-        int idClasse = generateur.nextInt(0,3);
+        int idClasse = generateur.nextInt(0,4);
         Objet nouvelleObjet;
         
         nouvelleObjet = switch (idClasse) {
@@ -266,13 +276,13 @@ public class World {
      */
     public void creerMondeAlea() {
         //Creation des créatures aléatoires
-        for(int icrea=0;icrea<100;icrea++)
+        for(int icrea=0;icrea<NB_CREATURE;icrea++)
         {
             creerCreatureAlea();
         }
         
         //Creation des objets aléatoires
-        for(int iobj=0;iobj<50;iobj++)
+        for(int iobj=0;iobj<NB_OBJET;iobj++)
         {
             creerObjetAlea();
         }
@@ -340,8 +350,8 @@ public class World {
         if(continuePlaying==2) return false;
         System.out.println("------------Debut tour des pnj------------\n");
         
-        
-        int mempvJoueur = joueur.getPersonnage().getPtVie();
+        Personnage joueurPersonnage = joueur.getPersonnage();
+        int mempvJoueur = joueurPersonnage.getPtVie();
         
         Random generateur = new Random();
         for(ElementDeJeu e : elementsDeJeu) {
@@ -349,6 +359,14 @@ public class World {
             if(e instanceof Creature creature)
             {
                 deplaceSansCollisions(creature);
+            }
+            
+            //obtain objet
+            if(e instanceof Utilisable u)
+            {
+                if (u.getPos().equals(joueurPersonnage.getPos())) {
+                    joueur.stockerUtilisable(u);
+                }
             }
             
             //attaques
@@ -364,22 +382,21 @@ public class World {
                 }
                 int targetIndex = generateur.nextInt(0,cibles.size());
                 c.combattre(cibles.get(targetIndex));
-        
             }
         }
         
         //remove all dead pnj
         Iterator<ElementDeJeu> iter = elementsDeJeu.iterator();
         while (iter.hasNext()) {
-          ElementDeJeu e = iter.next();
-          if (e instanceof Personnage p) 
-          {
-              if(p.getPtVie()<=0)
-              {
+            ElementDeJeu e = iter.next();
+            if (e instanceof Personnage p) 
+            {
+                if(p.getPtVie()<=0)
+                {
                     iter.remove();
                     System.out.println("\nUn pnj a tue un autre pnj");
-              }
-          }
+                }
+            }
         }
         
         System.out.println("-------------Fin tour des pnj-------------\n");

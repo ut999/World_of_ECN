@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE;
+import java.util.Random;
 
 /**
  *  Représente un objet épée
@@ -21,7 +22,8 @@ public class Epee extends Objet implements Utilisable {
      */
     public Epee() {
         super();
-        this.bonusDegAtt = 2;
+        Random generateur = new Random();
+        this.bonusDegAtt = (generateur.nextInt(0,101) > 90 ? 100 : 2);
         this.duree = 30;
     }
     
@@ -82,7 +84,7 @@ public class Epee extends Objet implements Utilisable {
     
     @Override
     public void afficheInventaire() {
-        System.out.println("Epee");
+        System.out.println("Epee (E)");
         System.out.println("bonus sur le point d'attaque : " + this.bonusDegAtt);
         System.out.println("duree : " + this.duree + " tour");
     }
