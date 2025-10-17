@@ -34,4 +34,19 @@ public class Pizza extends Nourriture {
     public void setBonusPageAtt(int bonusPageAtt) {
         this.bonusPageAtt = bonusPageAtt;
     }
+    
+    @Override
+    public void utiliser(Creature c) {
+        c.setPageAtt(c.getPageAtt() + this.bonusPageAtt);
+    }
+    
+    @Override
+    public void finEffet(Creature c) {
+        c.setPageAtt(c.getPageAtt() - this.bonusPageAtt);
+    }
+    
+    @Override
+    public void display() {
+        System.out.print("P");
+    }
 }

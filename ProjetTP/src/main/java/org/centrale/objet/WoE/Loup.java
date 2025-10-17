@@ -33,11 +33,12 @@ public class Loup extends Monstre implements Combattant {
      * @param degAtt
      * @param ptPar
      * @param pageAtt
+     * @param distAttMax
      * @param pagePar
      * @param pos
      */
-    public Loup(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
-        super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
+    public Loup(int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
+        super(ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePar, pos);
     }
     
      /**
@@ -104,7 +105,12 @@ public class Loup extends Monstre implements Combattant {
      */
     @Override
     public void affiche() {
-        System.out.println("\nAffichage du loup");
+        System.out.println("\nLoup");
         super.affiche();
+    }
+    
+    @Override
+    public void display() {
+        System.out.print("W");
     }
 }

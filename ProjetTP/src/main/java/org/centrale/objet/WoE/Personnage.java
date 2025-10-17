@@ -10,7 +10,6 @@ package org.centrale.objet.WoE;
 public abstract class Personnage extends Creature {
     //attributes
     private String nom;
-    private int distAttMax;
 
     /**
      * Constructeur de Personnage ne prenant pas de paramètres
@@ -18,7 +17,6 @@ public abstract class Personnage extends Creature {
     public Personnage() {
         super();
         this.nom = "Pierre";
-        this.distAttMax = 1;
     }
 
     /**
@@ -28,7 +26,6 @@ public abstract class Personnage extends Creature {
     public Personnage(Personnage p) {
         super(p);
         this.nom = p.nom;
-        this.distAttMax = p.distAttMax;
     }
 
     /**
@@ -43,9 +40,8 @@ public abstract class Personnage extends Creature {
      * @param pos
      */
     public Personnage(String nom, int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
-        super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
+        super(ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePar, pos);
         this.nom = nom;
-        this.distAttMax = distAttMax;
     }
 
     /**
@@ -62,22 +58,6 @@ public abstract class Personnage extends Creature {
      */
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getDistAttMax() {
-        return distAttMax;
-    }
-
-    /**
-     *
-     * @param distAttMax
-     */
-    public void setDistAttMax(int distAttMax) {
-        this.distAttMax = distAttMax;
     }
     
     /**

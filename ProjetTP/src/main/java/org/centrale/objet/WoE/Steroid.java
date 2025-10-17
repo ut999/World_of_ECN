@@ -46,4 +46,21 @@ public class Steroid extends Nourriture {
     public void setMalusPtVie(int malusPtVie) {
         this.malusPtVie = malusPtVie;
     }
+    
+    @Override
+    public void utiliser(Creature c) {
+        c.setDegAtt(c.getDegAtt() + this.bonusDegAtt);
+        c.setPtVie(c.getPtVie() + this.malusPtVie);
+    }
+    
+    @Override
+    public void finEffet(Creature c) {
+        c.setDegAtt(c.getDegAtt() - this.bonusDegAtt);
+        c.setPtVie(c.getPtVie() - this.malusPtVie);
+    }
+    
+    @Override
+    public void display() {
+        System.out.print("S");
+    }
 }

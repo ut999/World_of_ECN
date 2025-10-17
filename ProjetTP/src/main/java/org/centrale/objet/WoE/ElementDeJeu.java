@@ -47,4 +47,5 @@ public abstract class ElementDeJeu {
         pos.affiche();
     }
     
+    public abstract void display();
 }

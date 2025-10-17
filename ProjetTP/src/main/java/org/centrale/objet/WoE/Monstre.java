@@ -35,8 +35,8 @@ public abstract class Monstre extends Creature{
      * @param pagePar
      * @param pos
      */
-    public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
-        super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
+    public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
+        super(ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePar, pos);
     }
 
     /**

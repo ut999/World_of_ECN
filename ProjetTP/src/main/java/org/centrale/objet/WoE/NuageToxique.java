@@ -80,4 +80,14 @@ public class NuageToxique extends Objet implements Deplacable, Combattant {
     @Override
     public void combattre(Creature c) {
     }
+    
+    @Override
+    public void display() {
+        System.out.print("N");
+    }
+
+    @Override
+    public int getDistAttMax() {
+        return 0; //un nuage toxique n'attaque que sur sa case actuelle est a donc une attaque avec une porte de 0
+    }
 }

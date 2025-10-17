@@ -21,6 +21,7 @@ public class Archer extends Personnage implements Combattant {
     public Archer() {
         super();
         this.nbFleches = 10;
+        this.setDistAttMax(2);
     }
 
     /**
@@ -164,8 +165,13 @@ public class Archer extends Personnage implements Combattant {
      */
     @Override
     public void affiche() {
-        System.out.println("\nAffichage de l'archer");
+        System.out.println("\nArcher");
         super.affiche();
+    }
+
+    @Override
+    public void display() {
+        System.out.print("A");
     }
 
 }

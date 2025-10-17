@@ -16,6 +16,16 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
     private int ptPar;
     private int pageAtt;
     private int pagePar;
+    
+    private int distAttMax;
+
+    public int getDistAttMax() {
+        return distAttMax;
+    }
+
+    public void setDistAttMax(int distAttMax) {
+        this.distAttMax = distAttMax;
+    }
 
     /**
      *
@@ -27,6 +37,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
         this.ptPar = 5;
         this.pageAtt = 90;
         this.pagePar = 60;
+        this.distAttMax=1;
     }
     
     /**
@@ -39,6 +50,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
         this.degAtt = c.degAtt;
         this.ptPar = c.ptPar;
         this.pageAtt = c.pageAtt;
+        this.distAttMax = c.distAttMax;
     }
     
     /**
@@ -47,14 +59,16 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
      * @param degAtt
      * @param ptPar
      * @param pageAtt
+     * @param distAttMax
      * @param pagePar
      * @param pos
      */
-    public Creature(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
+    public Creature(int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
         super(pos);
         this.ptVie = ptVie;
         this.degAtt = degAtt;
         this.ptPar = ptPar;
+        this.distAttMax = distAttMax;
         this.pageAtt = pageAtt;
         this.pagePar = pagePar;
     }

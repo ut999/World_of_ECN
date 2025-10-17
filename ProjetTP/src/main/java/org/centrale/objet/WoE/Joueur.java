@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE;
-
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,8 @@ import java.util.Arrays;
 public class Joueur {
     
     private Personnage personnage;
+    private ArrayList<Utilisable> effets;
+    private ArrayList<Utilisable> inventaire;
 
     public Personnage getPersonnage() {
         return personnage;
@@ -23,6 +25,14 @@ public class Joueur {
 
     public void setPersonnage(Personnage personnage) {
         this.personnage = personnage;
+    }
+
+    public ArrayList<Utilisable> getEffets() {
+        return effets;
+    }
+
+    public void setEffets(ArrayList<Utilisable> effets) {
+        this.effets = effets;
     }
 
     public World getWorld() {
@@ -45,9 +55,8 @@ public class Joueur {
         this.world = world;
     }
     
-    public boolean tourJeu(int numero)
+    public boolean tourJeu()
     {
-        System.out.println("Tour du joueur n " + numero );
         
         world.displayZone(personnage.getPos(), 8);
         
@@ -63,7 +72,10 @@ public class Joueur {
             action = sc.nextLine();
             switch (action) {
                 case "D", "d" -> deplacementJoueur(sc);
-                case "C", "c" -> combatJoueur(sc);
+                case "C", "c" -> {if(!combatJoueur(sc))
+                {
+                    return tourJeu(); 
+                }}
                 case "I", "i" -> combatJoueur(sc);
                 case "Q", "q" -> {
                     return false;
@@ -75,21 +87,91 @@ public class Joueur {
         return true;
     }
     
+    public void stockerUtilisable(Utilisable u) {
+        inventaire.add(u);
+    }
+    
+    public boolean activeUtilisable(int i) {
+        if (i < 0 || i >= inventaire.size()) {
+            System.out.println("Indiquer un numero correct !");
+            return false;
+        }
+        Utilisable u = inventaire.get(i);
+        effets.add(u);
+        u.utiliser(this.personnage);
+        inventaire.remove(i);
+        return true;
+    }
+    
+    public void updateEffets() {
+        Iterator<Utilisable> it = effets.iterator();
+        while (it.hasNext()) {
+            Utilisable u = it.next();
+            if (u.finDuree()) {
+                u.finEffet(this.personnage);
+                it.remove();
+            }
+        }
+    }
+    
     public void ouvrirInventaireJoueur(Scanner sc)
     {
         System.out.println("Ouverture Inventaire");
     }
     
-    public void combatJoueur(Scanner sc)
+    public boolean combatJoueur(Scanner sc)
     {
+        ArrayList<Creature> cibles =  world.findListeCibleCombattant((Combattant)personnage);
+        if(cibles.isEmpty())
+        {
+            System.out.println("Aucune cible a portee, portee du personnage : " + personnage.getDistAttMax());
+            return false;
+        }
+        
+        System.out.println("Liste des " + cibles.size() +" cibles a portee");
+        
+        int i =0;
+        for(Creature c : cibles)
+        {
+            System.out.println("Cible n" + i);
+            c.affiche();
+        }
+        
+        int targetIndex = -1;
+        while(targetIndex < 0 || targetIndex >= cibles.size())
+        {
+            System.out.println("Choisissez une cible entre 0 et " + (cibles.size()-1));
+            targetIndex = sc.nextInt();
+        }
+        ((Combattant)personnage).combattre(cibles.get(targetIndex));
+        
+        if(cibles.get(targetIndex).getPtVie()<=0)
+        {
+            world.removeElementDeJeu(cibles.get(targetIndex));
+        }
+        
+        return true;
+        /*
         System.out.println("Choisissez une tile a combattre");
         
-        Point2D delta = new Point2D();
-        inputCase(sc,delta);
+        boolean flagCorrectAttack = false;
+        while(!flagCorrectAttack)
+        {            
+            Point2D ciblePos = new Point2D();
+            Point2D positionPersonnage = personnage.getPos();
+            inputCase(sc,ciblePos);
+
+            ciblePos.translate(positionPersonnage.getX(), positionPersonnage.getY());
+            
+            ElementDeJeu cible = world.findElementJeu(ciblePos);
+            
+            if(cible instanceof Creature creature)
+            {
+                ((Combattant)personnage).combattre(creature);
+            }
+        }
         
-        int dx = delta.getX();
-        int dy = delta.getY();
-        
+        */
     }
     
     public void deplacementJoueur(Scanner sc)

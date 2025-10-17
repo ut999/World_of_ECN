@@ -31,11 +31,12 @@ public class Lapin extends Monstre {
      * @param degAtt
      * @param ptPar
      * @param pageAtt
+     * @param distAttMax
      * @param pagePar
      * @param pos
      */
-    public Lapin(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
-        super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
+    public Lapin(int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
+        super(ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePar, pos);
     }
     
     /**
@@ -43,7 +44,12 @@ public class Lapin extends Monstre {
      */
     @Override
     public void affiche() {
-        System.out.println("\nAffichage du lapin");
+        System.out.println("\nLapin");
         super.affiche();
+    }
+    
+    @Override
+    public void display() {
+        System.out.print("L");
     }
 }

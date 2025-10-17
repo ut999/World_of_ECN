@@ -46,36 +46,14 @@ public class World {
         int idClasse = generateur.nextInt(0,5);
         Creature nouvelleCreature;
         
-        switch(idClasse){
-   
-            case 0: 
-                //System.out.println("creation Archer");
-                nouvelleCreature = new Archer();
-                break;
-            case 1:
-                //System.out.println("creation Paysan");
-                nouvelleCreature = new Paysan();
-                break;
-
-            case 2:
-                //System.out.println("creation Lapin");
-                nouvelleCreature = new Lapin();
-                break;
-
-            case 3:
-                //System.out.println("creation Guerrier");
-                nouvelleCreature = new Guerrier();
-                break;
-
-            case 4:
-                //System.out.println("creation Loup");
-                nouvelleCreature = new Loup();
-                break;
-                
-            default:
-                nouvelleCreature = new Paysan();
-                break;
-        }
+        nouvelleCreature = switch (idClasse) {
+            case 0 -> new Archer();
+            case 1 -> new Paysan();
+            case 2 -> new Lapin();
+            case 3 -> new Guerrier();
+            case 4 -> new Loup();
+            default -> new Paysan();
+        };
         
         nouvelleCreature.getPos().setPosition(generateur.nextInt(0,tailleX), generateur.nextInt(0,tailleY));
         nouvelleCreature.setPtVie(generateur.nextInt(2,10));
@@ -165,9 +143,9 @@ public class World {
         int pvtotaux = 0;
         for(int i=0; i<elementsDeJeu.size();i++)
         {   
-            if(elementsDeJeu.get(i) instanceof Creature)
+            if(elementsDeJeu.get(i) instanceof Creature creature)
             {
-                pvtotaux+=((Creature)elementsDeJeu.get(i)).getPtVie();
+                pvtotaux+=creature.getPtVie();
             }
         }
         return pvtotaux;
@@ -194,16 +172,69 @@ public class World {
      */
     public boolean tourDeJeu() {
         
+        System.out.println("-----------Debut tour du joueur-----------\n");
         boolean continuePlaying;
-        continuePlaying = joueur.tourJeu(1);
+        continuePlaying = joueur.tourJeu();
         
+        
+        System.out.println("------------Fin tour du joueur------------\n");
+        System.out.println("------------Debut tour des pnj------------\n");
+        
+        
+        int mempvJoueur = joueur.getPersonnage().getPtVie();
+        
+        Random generateur = new Random();
         for(ElementDeJeu e : elementsDeJeu) {
-            if(e instanceof Creature)
+            //deplacements
+            if(e instanceof Creature creature)
             {
-                deplaceSansCollisions((Creature)e);
+                deplaceSansCollisions(creature);
+            }
+            
+            //attaques
+            int attaque = generateur.nextInt(0,101);
+            int seuilAttaque = 20;
+            if(e instanceof Combattant c && attaque<seuilAttaque)
+            {
+                //attaque d'un png
+                ArrayList<Creature> cibles =  this.findListeCibleCombattant(c);
+                if(cibles.isEmpty())
+                {
+                    continue;
+                }
+                int targetIndex = generateur.nextInt(0,cibles.size());
+                c.combattre(cibles.get(targetIndex));
+        
             }
         }
-        consommerPotion();
+        
+        //remove all dead pnj
+        Iterator<ElementDeJeu> iter = elementsDeJeu.iterator();
+        while (iter.hasNext()) {
+          ElementDeJeu e = iter.next();
+          if (e instanceof Personnage p) 
+          {
+              if(p.getPtVie()<=0)
+              {
+                    iter.remove();
+                    System.out.println("\nUn pnj a tue un autre pnj");
+              }
+          }
+        }
+        
+        System.out.println("-------------Fin tour des pnj-------------\n");
+        int pvJoueur = joueur.getPersonnage().getPtVie();
+        if(pvJoueur<mempvJoueur)
+        {
+            System.out.println("Vous avez ete attaque par un pnj\n");
+            System.out.println("Vous aviez " + mempvJoueur + " hp et vous en avez maintenant " + pvJoueur);
+        }
+        
+        if(pvJoueur<=0)
+        {
+            System.out.println("Game Over, votre personnage n'a plus de points de vie");
+            return false;
+        }
         
         return continuePlaying;
     }
@@ -231,62 +262,15 @@ public class World {
             System.out.print("J");
             return;
         }
+        
+        //loop that display the elements present on the tile
         for(ElementDeJeu e : elementsDeJeu) {
             if(!p.equals(e.getPos()))
             {
               continue;  
             }
-            if(e instanceof Archer)
-            {
-                System.out.print("A");
-                return;
-            }
-            if(e instanceof Guerrier)
-            {
-                System.out.print("G");
-                return;
-            }
-            if(e instanceof Paysan)
-            {
-                System.out.print("F");
-                return;
-            }
-            if(e instanceof Loup)
-            {
-                System.out.print("W");
-                return;
-            }
-            if(e instanceof Lapin)
-            {
-                System.out.print("L");
-                return;
-            }
-            if(e instanceof PotionSoin)
-            {
-                System.out.print("H");
-                return;
-            }
-            if(e instanceof Epee)
-            {
-                System.out.print("E");
-                return;
-            }
-            if(e instanceof NuageToxique)
-            {
-                System.out.print("N");
-                return;
-            }
-            if(e instanceof Steroid)
-            {
-                System.out.print("S");
-                return;
-            }
-            if(e instanceof Pizza)
-            {
-                System.out.print("P");
-                return;
-            }
-            System.out.print("E");
+
+            e.display();
             return;
         }
         
@@ -394,7 +378,7 @@ public class World {
     }
     
     //renvoie l'élément de jeu présent sur une case, renvoie null si il n'y en a pas
-    //attention la fonction est longue à s'executer
+    //attention la fonction est longue à s'executer, pourrait s'accélérer en ayant une map des personnages selon leurs positions
     public ElementDeJeu findElementJeu(Point2D p)
     {
         for(ElementDeJeu e : elementsDeJeu) {
@@ -404,5 +388,40 @@ public class World {
             }
         }
         return null;
+    }
+    
+    public ArrayList<Creature> findListeCibleCombattant(Combattant c)
+    {
+        ArrayList<Creature> cibles = new ArrayList<>();
+        
+        int portee = c.getDistAttMax();
+        Point2D pos = c.getPos();
+        int px=pos.getX();
+        int py = pos.getY();
+        
+        Point2D iTile = new Point2D();
+        
+        for(int dy = -portee; dy <=portee;dy++)
+        {
+            for(int dx = -portee; dx <=portee;dx++)
+            {
+                iTile.setPosition(px+dx, py+dy);
+                //check distance puis ajout à la liste
+                if(pos.distance(iTile)<=portee && !pos.equals(iTile))
+                {
+                    ElementDeJeu e = findElementJeu(iTile);
+                    if(e instanceof Creature ic)
+                    {
+                        cibles.add(ic);
+                    }
+                }
+            }
+        }
+        return cibles;
+    }
+    
+    public void removeElementDeJeu(ElementDeJeu e)
+    {
+        elementsDeJeu.remove(e);
     }
 }

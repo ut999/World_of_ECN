@@ -108,7 +108,12 @@ public class Guerrier extends Personnage implements Combattant {
      */
     @Override
     public void affiche() {
-        System.out.println("\nAffichage du guerrier");
+        System.out.println("\nGuerrier");
         super.affiche();
+    }
+    
+    @Override
+    public void display() {
+        System.out.print("G");
     }
 }

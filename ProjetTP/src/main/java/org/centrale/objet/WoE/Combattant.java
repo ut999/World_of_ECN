@@ -9,5 +9,8 @@ package org.centrale.objet.WoE;
  * @author utaab
  */
 public interface Combattant {
+    
+    public Point2D getPos();
+    public int getDistAttMax();
     public void combattre(Creature c);
 }
