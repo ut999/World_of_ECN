@@ -47,7 +47,7 @@ public class Pizza extends Nourriture {
     
     @Override
     public void afficheInventaire() {
-        System.out.println("Pizza");
+        System.out.println("Pizza (P)");
         System.out.println("bonus sur le pourcentage de reussite d'une attaque : " + this.bonusPageAtt);
         System.out.println("duree : " + super.getDuree() + " tour");
     }

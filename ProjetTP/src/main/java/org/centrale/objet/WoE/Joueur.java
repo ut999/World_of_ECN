@@ -70,10 +70,19 @@ public class Joueur {
     public boolean tourJeu()
     {
         updateEffets();
-                
+        
         world.displayZone(personnage.getPos(), 8);
         
-        System.out.println("Selectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'Q' Quitter");
+        //afficher les donnees du personnage
+        System.out.println("\n| Status |");
+        System.out.println("HP : " + this.personnage.getPtVie()); 
+        System.out.println("Att : " + this.personnage.getDegAtt());
+        System.out.println("Att% " + this.personnage.getPageAtt()); 
+        System.out.println("Def : " + this.personnage.getPtPar());
+        System.out.println("Def%" + this.personnage.getPagePar());
+        System.out.println("Range : " + this.personnage.getDistAttMax());
+        
+        System.out.println("\nSelectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'Q' Quitter");
         
         Scanner sc = new Scanner(System.in);
         String action = "";
@@ -133,18 +142,18 @@ public class Joueur {
             //afficher l'inventaire
             for(Utilisable u : this.inventaire)
             {
-                System.out.println("\nObjet n" + i);
+                System.out.println("| Objet n" + i + " |");
                 u.afficheInventaire();
                 ++i;
             }
 
-            int targetIndex = -1;
-            while(targetIndex < 0 || targetIndex >= this.inventaire.size())
+            int targetIndex = -2;
+            while(targetIndex < -1 || targetIndex > this.inventaire.size())
             {
-                System.out.println("\nChoisissez un item entre 0 et " + (this.inventaire.size()-1));
+                System.out.println("\nChoisissez un item entre 0 et " + (this.inventaire.size()-1) + " ou -1 pour quitter l'inventaire");
                 targetIndex = sc.nextInt();
             }
-            activeUtilisable(targetIndex);
+            if (targetIndex != -1) {activeUtilisable(targetIndex);}
         }
     }
     

@@ -87,7 +87,7 @@ public class PotionSoin extends Objet implements Utilisable {
     
     @Override
     public void afficheInventaire() {
-        System.out.println("Potion soin");
+        System.out.println("Potion soin (H)");
         System.out.println("Gagne des points de vie : " + this.bonusPtVie);
     }
     
