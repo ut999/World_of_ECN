@@ -6,6 +6,13 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
 /**
  * Classe représentant le monde
  * @author Clément
@@ -34,6 +41,95 @@ public class World {
      */
     public World() {        
         elementsDeJeu = new ArrayList<>();
+    }
+    
+    public boolean loafFromFile(String nomFichier)
+    {
+        elementsDeJeu.clear();
+        List<String> creatures = 
+            new ArrayList<>(Arrays.asList("Archer", "Paysan", "Guerrier","Lapin","Loup"));
+        List<String> objets = 
+            new ArrayList<>(Arrays.asList("Epee", "NuageToxique", "Pizza","PotionSoin","Steroid"));
+        
+        File file = new File(nomFichier);
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader buffReader = new BufferedReader(reader);
+            int x = 0;
+            String s;
+            while((s = buffReader.readLine()) != null){
+                processLineLoading(s,creatures,objets);
+            }
+        }
+        catch(IOException e){
+          System.out.println("erreur de lecture du fichier");
+          return false;
+        }
+        return true;
+    }
+    
+    public void processLineLoading(String line,List<String> creatures,List<String> objets)
+    {
+        String separator = " ";
+        
+        StringTokenizer tokens = new StringTokenizer(line, separator, true);
+        if(!tokens.hasMoreTokens())
+            return;
+        
+        String type = tokens.nextToken();
+        
+        if(creatures.contains(type))
+        {
+            int posX=Integer.parseInt(tokens.nextToken());
+            int posY=Integer.parseInt(tokens.nextToken());
+            int ptVie=Integer.parseInt(tokens.nextToken());
+            int degAtt=Integer.parseInt(tokens.nextToken());
+            int ptPar=Integer.parseInt(tokens.nextToken());
+            int pageAtt=Integer.parseInt(tokens.nextToken());
+            int pagePar=Integer.parseInt(tokens.nextToken());
+            
+            Creature nouvelleCreature = switch (type) {
+                case "Archer"-> new Archer(10, "Alex", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Paysan" -> new Paysan("Alex", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Lapin" -> new Lapin(ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Guerrier" -> new Guerrier("Alex", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Loup" -> new Loup(ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                default -> new Paysan();
+            };
+            elementsDeJeu.add(nouvelleCreature);
+        }
+        else if(objets.contains(type))
+        {
+            int posX=Integer.parseInt(tokens.nextToken());
+            int posY=Integer.parseInt(tokens.nextToken());
+            int valEffet1=Integer.parseInt(tokens.nextToken());
+            int valEffet2=Integer.parseInt(tokens.nextToken());
+            int duree=Integer.parseInt(tokens.nextToken());
+            
+            Objet nouveeauObjet = switch (type) {
+                case "Epee"-> new Epee(new Point2D(posX,posY),valEffet1,duree);
+                case "NuageToxique" -> new NuageToxique(new Point2D(posX,posY),valEffet1);
+                case "Pizza" -> new Pizza(valEffet1,new Point2D(posX,posY),duree);
+                case "PotionSoin" -> new PotionSoin(new Point2D(posX,posY),valEffet1);
+                case "Steroid" -> new Steroid(new Point2D(posX,posY),duree,valEffet1,valEffet2);
+                default -> new PotionSoin();
+            };
+            elementsDeJeu.add(nouveeauObjet);
+        }
+        else if(type.equals("Joueur"))
+        {
+            int posX=Integer.parseInt(tokens.nextToken());
+            int posY=Integer.parseInt(tokens.nextToken());
+            int ptVie=Integer.parseInt(tokens.nextToken());
+            int degAtt=Integer.parseInt(tokens.nextToken());
+            int ptPar=Integer.parseInt(tokens.nextToken());
+            int pageAtt=Integer.parseInt(tokens.nextToken());
+            int pagePar=Integer.parseInt(tokens.nextToken());
+            int nbFleches=Integer.parseInt(tokens.nextToken());
+            
+            Personnage persoJoueur = new Archer(nbFleches, "Legolas", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+            joueur = new Joueur(persoJoueur, this);
+        }
     }
     
     /**
