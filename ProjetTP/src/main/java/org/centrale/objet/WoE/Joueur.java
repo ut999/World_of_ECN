@@ -117,6 +117,12 @@ public class Joueur {
     public void ouvrirInventaireJoueur(Scanner sc)
     {
         System.out.println("Ouverture Inventaire");
+        //afficher l'inventaire
+        for(Utilisable u : inventaire)
+        {
+            u.afficheInventaire();
+        }
+        
     }
     
     public boolean combatJoueur(Scanner sc)
