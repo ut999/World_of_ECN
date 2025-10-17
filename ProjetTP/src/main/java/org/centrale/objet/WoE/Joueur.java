@@ -148,9 +148,9 @@ public class Joueur {
     public void ouvrirInventaireJoueur(Scanner sc)
     {
         if (this.inventaire.isEmpty()) {
-            System.out.println("L'inventaire est vide ! Vous passez un tour.");
+            System.out.println("\nL'inventaire est vide ! Vous passez un tour.");
         } else {
-            System.out.println("Ouverture Inventaire : ");
+            System.out.println("\nOuverture Inventaire : ");
             int i = 0;
 
             //afficher l'inventaire
@@ -165,7 +165,12 @@ public class Joueur {
             while(targetIndex < -1 || targetIndex > this.inventaire.size())
             {
                 System.out.println("\nChoisissez un item entre 0 et " + (this.inventaire.size()-1) + " ou -1 pour quitter l'inventaire");
-                targetIndex = sc.nextInt();
+                if (sc.hasNextInt()) {
+                    targetIndex = sc.nextInt();
+                } else {
+                    System.out.println("Entree invalide ! Veuillez entrer un nombre.");
+                    sc.next();
+                }
             }
             if (targetIndex != -1) {activeUtilisable(targetIndex);}
         }
@@ -176,11 +181,11 @@ public class Joueur {
         ArrayList<Creature> cibles =  world.findListeCibleCombattant((Combattant)personnage);
         if(cibles.isEmpty())
         {
-            System.out.println("Aucune cible a portee, portee du personnage : " + personnage.getDistAttMax());
+            System.out.println("\nAucune cible a portee, portee du personnage : " + personnage.getDistAttMax());
             return false;
         }
         
-        System.out.println("Liste des " + cibles.size() +" cibles a portee");
+        System.out.println("\nListe des " + cibles.size() +" cibles a portee :");
         
         int i = 0;
         for(Creature c : cibles)
@@ -191,10 +196,15 @@ public class Joueur {
         }
         
         int targetIndex = -1;
-        while(targetIndex < 0 || targetIndex >= cibles.size())
-        {
-            System.out.println("\nChoisissez une cible entre 0 et " + (cibles.size()-1));
-            targetIndex = sc.nextInt();
+        while (targetIndex < 0 || targetIndex >= cibles.size()) {
+            System.out.println("\nChoisissez une cible entre 0 et " + (cibles.size() - 1));
+
+            if (sc.hasNextInt()) {
+                targetIndex = sc.nextInt();
+            } else {
+                System.out.println("Entree invalide ! Veuillez entrer un nombre.");
+                sc.next();
+            }
         }
         ((Combattant)personnage).combattre(cibles.get(targetIndex));
         

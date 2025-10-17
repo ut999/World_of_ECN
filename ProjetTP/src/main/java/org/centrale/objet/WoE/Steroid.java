@@ -63,6 +63,7 @@ public class Steroid extends Nourriture {
     public void afficheInventaire() {
         System.out.println("Steroid (S)");
         System.out.println("bonus de point d'attaque : " + this.bonusDegAtt);
+        System.out.println("malus de point vie : " + this.malusPtVie);
         System.out.println("duree : " + super.getDuree() + " tour");
     }
     
