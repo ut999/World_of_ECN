@@ -35,6 +35,14 @@ public class Joueur {
         this.effets = effets;
     }
 
+    public ArrayList<Utilisable> getInventaire() {
+        return inventaire;
+    }
+
+    public void setInventaire(ArrayList<Utilisable> inventaire) {
+        this.inventaire = inventaire;
+    }
+
     public World getWorld() {
         return world;
     }
@@ -46,16 +54,20 @@ public class Joueur {
     public Joueur()
     {
         personnage = null;
+        this.effets = new ArrayList<>();
+        this.inventaire = new ArrayList<>();
         world = null;
     }
     
     public Joueur( Personnage personnage, World world)
     {
         this.personnage = personnage;
+        this.effets = new ArrayList<>();
+        this.inventaire = new ArrayList<>();
         this.world = world;
     }
     
-    public boolean tourJeu()
+    public int tourJeu() //0 turn player finished, 1 turn player not finished (save), game stop
     {
         updateEffets();
                 
@@ -67,7 +79,7 @@ public class Joueur {
         String action = "";
         
         List<String> actionsPossible = 
-                new ArrayList<>(Arrays.asList("C", "c", "D", "d", "I", "i","L","l","Q","q"));
+                new ArrayList<>(Arrays.asList("C", "c", "D", "d", "I", "i","L","l","S","s","Q","q"));
         while(!actionsPossible.contains(action))
         {
             action = sc.nextLine();
@@ -77,15 +89,33 @@ public class Joueur {
                 {
                     return tourJeu(); 
                 }}
-                case "I", "i" -> combatJoueur(sc);
+                case "I", "i" -> ouvrirInventaireJoueur(sc);
+                case "S", "s" -> {saveGame(sc);return 1;}
+                case "L", "l" -> {loadGame(sc);return 1;}
                 case "Q", "q" -> {
-                    return false;
+                    return 2;
                 }
                 default -> System.out.println("Erreur de l'input, veuillez ecrire D, C, I ou Q");
             }
         }
         
-        return true;
+        return 0;
+    }
+    
+    public void saveGame(Scanner sc) {
+        System.out.println("Nom fichier sauveguarde");
+        String fileName = sc.nextLine();
+        boolean result = world.saveToFile(fileName);
+        
+        System.out.println(result?"Reussite de la sauveguarde":"Echec de la sauveguarde");
+    }
+    
+    public void loadGame(Scanner sc) {
+        System.out.println("Nom fichier sauveguarde");
+        String fileName = sc.nextLine();
+        boolean result = world.loafFromFile(fileName);
+        
+        System.out.println(result?"Reussite du chargement":"Echec du chargement");
     }
     
     public void stockerUtilisable(Utilisable u) {
@@ -100,7 +130,7 @@ public class Joueur {
     }
     
     public void updateEffets() {
-        Iterator<Utilisable> it = effets.iterator();
+        Iterator<Utilisable> it = this.effets.iterator();
         while (it.hasNext()) {
             Utilisable u = it.next();
             if (u.finDuree()) {
@@ -112,24 +142,28 @@ public class Joueur {
     
     public void ouvrirInventaireJoueur(Scanner sc)
     {
-        System.out.println("Ouverture Inventaire : ");
-        int i = 0;
-        
-        //afficher l'inventaire
-        for(Utilisable u : this.inventaire)
-        {
-            System.out.println("Objet n" + i);
-            u.afficheInventaire();
-            ++i;
+        if (this.inventaire.isEmpty()) {
+            System.out.println("L'inventaire est vide ! Vous passez un tour.");
+        } else {
+            System.out.println("Ouverture Inventaire : ");
+            int i = 0;
+
+            //afficher l'inventaire
+            for(Utilisable u : this.inventaire)
+            {
+                System.out.println("\nObjet n" + i);
+                u.afficheInventaire();
+                ++i;
+            }
+
+            int targetIndex = -1;
+            while(targetIndex < 0 || targetIndex >= this.inventaire.size())
+            {
+                System.out.println("\nChoisissez un item entre 0 et " + (this.inventaire.size()-1));
+                targetIndex = sc.nextInt();
+            }
+            activeUtilisable(targetIndex);
         }
-        
-        int targetIndex = -1;
-        while(targetIndex < 0 || targetIndex >= this.inventaire.size())
-        {
-            System.out.println("Choisissez un item entre 0 et " + (this.inventaire.size()-1));
-            targetIndex = sc.nextInt();
-        }
-        activeUtilisable(targetIndex);
     }
     
     public boolean combatJoueur(Scanner sc)
@@ -165,27 +199,7 @@ public class Joueur {
         }
         
         return true;
-        /*
-        System.out.println("Choisissez une tile a combattre");
-        
-        boolean flagCorrectAttack = false;
-        while(!flagCorrectAttack)
-        {            
-            Point2D ciblePos = new Point2D();
-            Point2D positionPersonnage = personnage.getPos();
-            inputCase(sc,ciblePos);
 
-            ciblePos.translate(positionPersonnage.getX(), positionPersonnage.getY());
-            
-            ElementDeJeu cible = world.findElementJeu(ciblePos);
-            
-            if(cible instanceof Creature creature)
-            {
-                ((Combattant)personnage).combattre(creature);
-            }
-        }
-        
-        */
     }
     
     public void deplacementJoueur(Scanner sc)

@@ -7,8 +7,11 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -45,15 +48,24 @@ public class World {
     
     public boolean loafFromFile(String nomFichier)
     {
-        elementsDeJeu.clear();
+
         List<String> creatures = 
             new ArrayList<>(Arrays.asList("Archer", "Paysan", "Guerrier","Lapin","Loup"));
         List<String> objets = 
             new ArrayList<>(Arrays.asList("Epee", "NuageToxique", "Pizza","PotionSoin","Steroid"));
         
         File file = new File(nomFichier);
+        FileReader reader=null;
+        try{
+            reader = new FileReader(file);
+        }
+        catch(IOException e){
+          System.out.println("erreur de lecture du fichier");
+          return false;
+        }
+        elementsDeJeu.clear();
         try {
-            FileReader reader = new FileReader(file);
+            
             BufferedReader buffReader = new BufferedReader(reader);
             int x = 0;
             String s;
@@ -72,7 +84,7 @@ public class World {
     {
         String separator = " ";
         
-        StringTokenizer tokens = new StringTokenizer(line, separator, true);
+        StringTokenizer tokens = new StringTokenizer(line, separator);
         if(!tokens.hasMoreTokens())
             return;
         
@@ -128,8 +140,79 @@ public class World {
             int nbFleches=Integer.parseInt(tokens.nextToken());
             
             Personnage persoJoueur = new Archer(nbFleches, "Legolas", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
-            joueur = new Joueur(persoJoueur, this);
+            joueur.setPersonnage(persoJoueur);
         }
+    }
+    
+    public boolean saveToFile(String nomFichier)
+    {
+        BufferedWriter bufferedWriter=null;
+
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(nomFichier));
+            // On ecrit dans le fichier
+            for(ElementDeJeu e : elementsDeJeu) {
+                bufferedWriter.write(elementDeJeuToString(e));
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.write("Joueur "+joueur.getPersonnage().getPos().getX()+" "+joueur.getPersonnage().getPos().getY()+" "
+                    +joueur.getPersonnage().getPtVie()+" "+joueur.getPersonnage().getDegAtt()+" "+joueur.getPersonnage().getPtPar()+" "
+                    +joueur.getPersonnage().getPageAtt()+" "+joueur.getPersonnage().getPagePar()+" "+((Archer)joueur.getPersonnage()).getNbFleches()+" ");
+            bufferedWriter.newLine();
+
+        }
+            // on attrape l'exception si on a pas pu creer le fichier
+            catch (FileNotFoundException ex) {
+            }
+
+            // on attrape l'exception si il y a un probleme lors de l'ecr
+            catch (IOException ex) {
+            }
+        // on ferme le fichier
+        finally {
+            try {
+                if (bufferedWriter!=null) {
+                // je force l'écriture dans le fichier
+                bufferedWriter.flush();
+                // puis je le ferme
+                bufferedWriter.close();
+            }}
+            catch(IOException ex)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String elementDeJeuToString(ElementDeJeu e)
+    {
+        if(e instanceof Creature c)
+        {
+            String stats = c.getPos().getX()+" "+c.getPos().getY()+" "+c.getPtVie()+" "+c.getDegAtt()+
+                    " "+c.getPtPar()+" "+c.getPageAtt()+" "+c.getPagePar()+" ";
+            switch (c) {
+            case Archer a -> {return ("Archer " + stats); }
+            case Lapin b ->  {return ("Lapin " + stats); }
+            case Loup l ->  {return ("Loup " + stats); }
+            case Guerrier d ->  {return ("Guerrier " + stats); }
+            case Paysan s ->  {return ("Paysan " + stats); }
+            default ->  {return ("Paysan " + stats); }
+            }  
+        }
+        if(e instanceof Objet o)
+        {
+            String pos = o.getPos().getX()+" "+o.getPos().getY()+" ";
+            switch (o) {
+            case Epee s -> {return ("Epee " + pos + s.getBonusDegAtt() + " 0 " + s.getDuree()); }
+            case NuageToxique n ->  {return ("NuageToxique " + pos +n.getDegAtt() + " 0 0" ); }
+            case Pizza p ->  {return ("Pizza " + pos + p.getBonusPageAtt() + " 0 " + p.getDuree()); }
+            case PotionSoin p ->  {return ("PotionSoin " + pos + p.getBonusPtVie() + " 0 0"); }
+            case Steroid s ->  {return ("Steroid " + pos + s.getBonusDegAtt() + " " + s.getMalusPtVie() + " " + s.getDuree()); }
+            default ->  {return ("PotionSoin " + " 5 0 0"); }
+            }  
+        }
+        return "";
     }
     
     /**
@@ -151,9 +234,30 @@ public class World {
             default -> new Paysan();
         };
         
-        nouvelleCreature.getPos().setPosition(generateur.nextInt(0,tailleX), generateur.nextInt(0,tailleY));
+        nouvelleCreature.getPos().setPosition(generateur.nextInt(1,tailleX), generateur.nextInt(1,tailleY));
         nouvelleCreature.setPtVie(generateur.nextInt(2,10));
         elementsDeJeu.add(nouvelleCreature);
+    }
+    
+    /**
+     *  Créer un objet aléatoire, elle est de type aléatoire (nourriture, potionSoin, ...)
+     *  Elle possède une position aléatoire sur la carte.
+     */
+    public void creerObjetAlea(){
+        Random generateur = new Random();
+        
+        int idClasse = generateur.nextInt(0,3);
+        Objet nouvelleObjet;
+        
+        nouvelleObjet = switch (idClasse) {
+            case 0 -> new Epee();
+            case 1 -> new PotionSoin();
+            case 2 -> new Pizza();
+            default -> new Steroid();
+        };
+        
+        nouvelleObjet.getPos().setPosition(generateur.nextInt(0,tailleX), generateur.nextInt(0,tailleY));
+        elementsDeJeu.add(nouvelleObjet);
     }
     
     /**
@@ -161,12 +265,16 @@ public class World {
      * de créatures aléatoires
      */
     public void creerMondeAlea() {
-        Random generateur = new Random();
-        
         //Creation des créatures aléatoires
         for(int icrea=0;icrea<100;icrea++)
         {
             creerCreatureAlea();
+        }
+        
+        //Creation des objets aléatoires
+        for(int iobj=0;iobj<50;iobj++)
+        {
+            creerObjetAlea();
         }
         
         Personnage persoJoueur = new Archer();
@@ -183,52 +291,6 @@ public class World {
                 };
         robin.setNom(banqueDeNoms[generateur.nextInt(banqueDeNoms.length)]);
         */
-        
-        //Initialisation des potions
-        int nb_potion = generateur.nextInt(5,20);
-        for (int i = 0; i<nb_potion; i++) {
-            PotionSoin potion = new PotionSoin();
-            potion.setPos(new Point2D(generateur.nextInt(-100,101),generateur.nextInt(-100,101)));
-            elementsDeJeu.add(potion);
-        }
-    }
-    
-    /**
-     *  Fonction permettant de consommer les potions sur lesquels un personnage est posé
-     */
-    public void consommerPotion() {
-        
-        System.out.println("\nConsommerPotion");
-        
-        //La fonction remove supprime la premierer occurence de la liste, donc si deux objet identique existe, erreur de memoire
-        /*for (PotionSoin potion : potions) {
-        if (robin.getPos().equals(potion.getPos())) {
-        robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
-        potions.remove(potion);
-        System.out.println("robin a une point de vie en plus !");
-        }
-        }*/
-        
-        /*
-        
-        for (int i = potions.size()-1; i>=0; i--) {
-            if (robin.getPos().equals(potions.get(i).getPos())) {
-                robin.setPtVie(potions.get(i).getPtSoin() + robin.getPtVie());
-                potions.remove(i);
-                System.out.println("robin gagne " + potions.get(i).getPtSoin() + " point de vie !");
-            }
-        }
-        */
-        
-        // Utilisation de l'iterator pour eviter l'ambiguite d'indexation lors de suppression des elements
-        /*Iterator<PotionSoin> it = potions.iterator();
-        while (it.hasNext()) {
-        PotionSoin potion = it.next();
-        if (robin.getPos().equals(potion.getPos())) {
-        robin.setPtVie(potion.getPtSoin() + robin.getPtVie());
-        it.remove();
-        }
-        }*/
     }
     
     /**
@@ -254,7 +316,7 @@ public class World {
     public int calculPointsDeVieTotauxIter(){
         int pvtotaux = 0;
         for(ElementDeJeu e : elementsDeJeu) {
-            if(e instanceof Creature)
+            if (e instanceof Creature)
             {
                 pvtotaux+=((Creature)e).getPtVie();
             }
@@ -264,16 +326,18 @@ public class World {
     
     /**
      *  Fonction réalisant un tour du jeu, pour le moment chaque personnage se déplace
-     * et les postions consomables sont consommées.
+     * et les postions consomables sont consommées
+     * @return .
      */
     public boolean tourDeJeu() {
         
         System.out.println("-----------Debut tour du joueur-----------\n");
-        boolean continuePlaying;
+        int continuePlaying;
         continuePlaying = joueur.tourJeu();
         
-        
         System.out.println("------------Fin tour du joueur------------\n");
+        if(continuePlaying==1) return true;
+        if(continuePlaying==2) return false;
         System.out.println("------------Debut tour des pnj------------\n");
         
         
@@ -332,7 +396,7 @@ public class World {
             return false;
         }
         
-        return continuePlaying;
+        return true;
     }
     
     /**

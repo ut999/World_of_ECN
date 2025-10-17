@@ -4,6 +4,9 @@
 
 package org.centrale.objet.WoE;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Classe main servant à faire des tests sur le projet
  * @author utaab
