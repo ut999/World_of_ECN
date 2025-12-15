@@ -67,7 +67,7 @@ public class Joueur {
         this.world = world;
     }
     
-    public boolean tourJeu()
+    public int tourJeu() //0 turn player finished, 1 turn player not finished (save), game stop
     {
         updateEffets();
         
@@ -95,14 +95,15 @@ public class Joueur {
         System.out.println("Def : " + this.personnage.getPtPar());
         System.out.println("Def% : " + this.personnage.getPagePar());
         System.out.println("Range : " + this.personnage.getDistAttMax());
+        System.out.println("Nb fleches : " + ((Archer)this.personnage).getNbFleches());
         
-        System.out.println("\nSelectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'Q' Quitter");
+        System.out.println("\nSelectionner une action, 'C' : Combat, 'D' Deplacer, 'I' Inventaire, 'L' Load, 'S' Save, 'Q' Quitter");
         
         Scanner sc = new Scanner(System.in);
         String action = "";
         
         List<String> actionsPossible = 
-                new ArrayList<>(Arrays.asList("C", "c", "D", "d", "I", "i","Q","q"));
+                new ArrayList<>(Arrays.asList("C", "c", "D", "d", "I", "i","L","l","S","s","Q","q"));
         while(!actionsPossible.contains(action))
         {
             action = sc.nextLine();
@@ -113,14 +114,32 @@ public class Joueur {
                     return tourJeu(); 
                 }}
                 case "I", "i" -> ouvrirInventaireJoueur(sc);
+                case "S", "s" -> {saveGame(sc);return 1;}
+                case "L", "l" -> {loadGame(sc);return 1;}
                 case "Q", "q" -> {
-                    return false;
+                    return 2;
                 }
                 default -> System.out.println("Erreur de l'input, veuillez ecrire D, C, I ou Q");
             }
         }
         
-        return true;
+        return 0;
+    }
+    
+    public void saveGame(Scanner sc) {
+        System.out.println("Nom fichier sauveguarde");
+        String fileName = sc.nextLine();
+        boolean result = world.saveToFile(fileName);
+        
+        System.out.println(result?"Reussite de la sauveguarde":"Echec de la sauveguarde");
+    }
+    
+    public void loadGame(Scanner sc) {
+        System.out.println("Nom fichier sauveguarde");
+        String fileName = sc.nextLine();
+        boolean result = world.loafFromFile(fileName);
+        
+        System.out.println(result?"Reussite du chargement":"Echec du chargement");
     }
     
     public void stockerUtilisable(Utilisable u) {
@@ -214,27 +233,7 @@ public class Joueur {
         }
         
         return true;
-        /*
-        System.out.println("Choisissez une tile a combattre");
-        
-        boolean flagCorrectAttack = false;
-        while(!flagCorrectAttack)
-        {            
-            Point2D ciblePos = new Point2D();
-            Point2D positionPersonnage = personnage.getPos();
-            inputCase(sc,ciblePos);
 
-            ciblePos.translate(positionPersonnage.getX(), positionPersonnage.getY());
-            
-            ElementDeJeu cible = world.findElementJeu(ciblePos);
-            
-            if(cible instanceof Creature creature)
-            {
-                ((Combattant)personnage).combattre(creature);
-            }
-        }
-        
-        */
     }
     
     public void deplacementJoueur(Scanner sc)

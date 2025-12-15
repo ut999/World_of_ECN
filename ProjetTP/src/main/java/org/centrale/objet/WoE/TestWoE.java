@@ -19,19 +19,11 @@ public class TestWoE {
      */
     public static void main(String[] args) {
         World mondeTest = new World();
-
-        mondeTest.creerMondeAlea();
-
-        Epee e = new Epee();
-        PotionSoin p = new PotionSoin();
-        Pizza pi = new Pizza();
-        Steroid s = new Steroid();
-        mondeTest.joueur.setInventaire(new ArrayList<Utilisable>(Arrays.asList(e, p, pi, s)));
-        
-        while(mondeTest.tourDeJeu())
-        {
-
-        }
+       mondeTest.creerMondeAlea();
+       while(mondeTest.tourDeJeu())
+       {
+            
+       }
     }
     
     public static int lectureHP(boolean erreur) throws NumberFormatException

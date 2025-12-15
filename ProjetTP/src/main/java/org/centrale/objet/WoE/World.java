@@ -6,6 +6,16 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
 /**
  * Classe représentant le monde
  * @author Clément
@@ -46,6 +56,175 @@ public class World {
         elementsDeJeu = new ArrayList<>();
     }
     
+    public boolean loafFromFile(String nomFichier)
+    {
+
+        List<String> creatures = 
+            new ArrayList<>(Arrays.asList("Archer", "Paysan", "Guerrier","Lapin","Loup"));
+        List<String> objets = 
+            new ArrayList<>(Arrays.asList("Epee", "NuageToxique", "Pizza","PotionSoin","Steroid"));
+        
+        File file = new File(nomFichier);
+        FileReader reader=null;
+        try{
+            reader = new FileReader(file);
+        }
+        catch(IOException e){
+          System.out.println("erreur de lecture du fichier");
+          return false;
+        }
+        elementsDeJeu.clear();
+        try {
+            
+            BufferedReader buffReader = new BufferedReader(reader);
+            int x = 0;
+            String s;
+            while((s = buffReader.readLine()) != null){
+                processLineLoading(s,creatures,objets);
+            }
+        }
+        catch(IOException e){
+          System.out.println("erreur de lecture du fichier");
+          return false;
+        }
+        return true;
+    }
+    
+    public void processLineLoading(String line,List<String> creatures,List<String> objets)
+    {
+        String separator = " ";
+        
+        StringTokenizer tokens = new StringTokenizer(line, separator);
+        if(!tokens.hasMoreTokens())
+            return;
+        
+        String type = tokens.nextToken();
+        
+        if(creatures.contains(type))
+        {
+            int posX=Integer.parseInt(tokens.nextToken());
+            int posY=Integer.parseInt(tokens.nextToken());
+            int ptVie=Integer.parseInt(tokens.nextToken());
+            int degAtt=Integer.parseInt(tokens.nextToken());
+            int ptPar=Integer.parseInt(tokens.nextToken());
+            int pageAtt=Integer.parseInt(tokens.nextToken());
+            int pagePar=Integer.parseInt(tokens.nextToken());
+            
+            Creature nouvelleCreature = switch (type) {
+                case "Archer"-> new Archer(10, "Alex", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Paysan" -> new Paysan("Alex", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Lapin" -> new Lapin(ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Guerrier" -> new Guerrier("Alex", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                case "Loup" -> new Loup(ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+                default -> new Paysan();
+            };
+            elementsDeJeu.add(nouvelleCreature);
+        }
+        else if(objets.contains(type))
+        {
+            int posX=Integer.parseInt(tokens.nextToken());
+            int posY=Integer.parseInt(tokens.nextToken());
+            int valEffet1=Integer.parseInt(tokens.nextToken());
+            int valEffet2=Integer.parseInt(tokens.nextToken());
+            int duree=Integer.parseInt(tokens.nextToken());
+            
+            Objet nouveeauObjet = switch (type) {
+                case "Epee"-> new Epee(new Point2D(posX,posY),valEffet1,duree);
+                case "NuageToxique" -> new NuageToxique(new Point2D(posX,posY),valEffet1);
+                case "Pizza" -> new Pizza(valEffet1,new Point2D(posX,posY),duree);
+                case "PotionSoin" -> new PotionSoin(new Point2D(posX,posY),valEffet1);
+                case "Steroid" -> new Steroid(new Point2D(posX,posY),duree,valEffet1,valEffet2);
+                default -> new PotionSoin();
+            };
+            elementsDeJeu.add(nouveeauObjet);
+        }
+        else if(type.equals("Joueur"))
+        {
+            int posX=Integer.parseInt(tokens.nextToken());
+            int posY=Integer.parseInt(tokens.nextToken());
+            int ptVie=Integer.parseInt(tokens.nextToken());
+            int degAtt=Integer.parseInt(tokens.nextToken());
+            int ptPar=Integer.parseInt(tokens.nextToken());
+            int pageAtt=Integer.parseInt(tokens.nextToken());
+            int pagePar=Integer.parseInt(tokens.nextToken());
+            int nbFleches=Integer.parseInt(tokens.nextToken());
+            
+            Personnage persoJoueur = new Archer(nbFleches, "Legolas", ptVie, degAtt, ptPar, pageAtt, 2, pagePar, new Point2D(posX,posY));
+            joueur.setPersonnage(persoJoueur);
+        }
+    }
+    
+    public boolean saveToFile(String nomFichier)
+    {
+        BufferedWriter bufferedWriter=null;
+
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(nomFichier));
+            // On ecrit dans le fichier
+            for(ElementDeJeu e : elementsDeJeu) {
+                bufferedWriter.write(elementDeJeuToString(e));
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.write("Joueur "+joueur.getPersonnage().getPos().getX()+" "+joueur.getPersonnage().getPos().getY()+" "
+                    +joueur.getPersonnage().getPtVie()+" "+joueur.getPersonnage().getDegAtt()+" "+joueur.getPersonnage().getPtPar()+" "
+                    +joueur.getPersonnage().getPageAtt()+" "+joueur.getPersonnage().getPagePar()+" "+((Archer)joueur.getPersonnage()).getNbFleches()+" ");
+            bufferedWriter.newLine();
+
+        }
+            // on attrape l'exception si on a pas pu creer le fichier
+            catch (FileNotFoundException ex) {
+            }
+
+            // on attrape l'exception si il y a un probleme lors de l'ecr
+            catch (IOException ex) {
+            }
+        // on ferme le fichier
+        finally {
+            try {
+                if (bufferedWriter!=null) {
+                // je force l'écriture dans le fichier
+                bufferedWriter.flush();
+                // puis je le ferme
+                bufferedWriter.close();
+            }}
+            catch(IOException ex)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String elementDeJeuToString(ElementDeJeu e)
+    {
+        if(e instanceof Creature c)
+        {
+            String stats = c.getPos().getX()+" "+c.getPos().getY()+" "+c.getPtVie()+" "+c.getDegAtt()+
+                    " "+c.getPtPar()+" "+c.getPageAtt()+" "+c.getPagePar()+" ";
+            switch (c) {
+            case Archer a -> {return ("Archer " + stats); }
+            case Lapin b ->  {return ("Lapin " + stats); }
+            case Loup l ->  {return ("Loup " + stats); }
+            case Guerrier d ->  {return ("Guerrier " + stats); }
+            case Paysan s ->  {return ("Paysan " + stats); }
+            default ->  {return ("Paysan " + stats); }
+            }  
+        }
+        if(e instanceof Objet o)
+        {
+            String pos = o.getPos().getX()+" "+o.getPos().getY()+" ";
+            switch (o) {
+            case Epee s -> {return ("Epee " + pos + s.getBonusDegAtt() + " 0 " + s.getDuree()); }
+            case NuageToxique n ->  {return ("NuageToxique " + pos +n.getDegAtt() + " 0 0" ); }
+            case Pizza p ->  {return ("Pizza " + pos + p.getBonusPageAtt() + " 0 " + p.getDuree()); }
+            case PotionSoin p ->  {return ("PotionSoin " + pos + p.getBonusPtVie() + " 0 0"); }
+            case Steroid s ->  {return ("Steroid " + pos + s.getBonusDegAtt() + " " + s.getMalusPtVie() + " " + s.getDuree()); }
+            default ->  {return ("PotionSoin " + " 5 0 0"); }
+            }  
+        }
+        return "";
+    }
+    
     /**
      *  Créer une créature aléatoire, elle est de type aléatoire (loup, paysan, archer , ...)
      *  Elle possède une position aléatoire sur la carte ainsi qu'un nombre de hp aléatoire.
@@ -65,7 +244,7 @@ public class World {
             default -> new Paysan();
         };
         
-        nouvelleCreature.getPos().setPosition(generateur.nextInt(0,tailleX), generateur.nextInt(0,tailleY));
+        nouvelleCreature.getPos().setPosition(generateur.nextInt(1,tailleX), generateur.nextInt(1,tailleY));
         nouvelleCreature.setPtVie(generateur.nextInt(2,10));
         elementsDeJeu.add(nouvelleCreature);
     }
@@ -163,11 +342,12 @@ public class World {
     public boolean tourDeJeu() {
         
         System.out.println("-----------Debut tour du joueur-----------\n");
-        boolean continuePlaying;
+        int continuePlaying;
         continuePlaying = joueur.tourJeu();
         
-        
         System.out.println("------------Fin tour du joueur------------\n");
+        if(continuePlaying==1) return true;
+        if(continuePlaying==2) return false;
         System.out.println("------------Debut tour des pnj------------\n");
         
         Personnage joueurPersonnage = joueur.getPersonnage();
@@ -233,7 +413,7 @@ public class World {
             return false;
         }
         
-        return continuePlaying;
+        return true;
     }
     
     /**
