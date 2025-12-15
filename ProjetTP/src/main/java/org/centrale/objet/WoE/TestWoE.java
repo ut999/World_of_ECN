@@ -4,23 +4,41 @@
 
 package org.centrale.objet.WoE;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
- *
+ * Classe main servant à faire des tests sur le projet
  * @author utaab
  */
 public class TestWoE {
 
+    /**
+     *  Méthode main servant à faire des tests sur le projet
+     * @param args
+     */
     public static void main(String[] args) {
         World mondeTest = new World();
-        mondeTest.bugs.affiche();
-        mondeTest.peon.affiche();
-        mondeTest.robin.affiche();
-        
-        System.out.println("aleatoire");
+
         mondeTest.creerMondeAlea();
+
+        Epee e = new Epee();
+        PotionSoin p = new PotionSoin();
+        Pizza pi = new Pizza();
+        Steroid s = new Steroid();
+        mondeTest.joueur.setInventaire(new ArrayList<Utilisable>(Arrays.asList(e, p, pi, s)));
         
-        mondeTest.bugs.affiche();
-        mondeTest.peon.affiche();
-        mondeTest.robin.affiche();
+        while(mondeTest.tourDeJeu())
+        {
+
+        }
+    }
+    
+    public static int lectureHP(boolean erreur) throws NumberFormatException
+    {
+        String inputString = erreur?"200hp":"200";
+        return Integer.parseInt(inputString);
     }
 }
+
+

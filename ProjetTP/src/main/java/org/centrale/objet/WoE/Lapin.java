@@ -5,20 +5,51 @@
 package org.centrale.objet.WoE;
 
 /**
- *
+ *  Représente un monstre lapin
  * @author utaab
  */
 public class Lapin extends Monstre {
 
-    public Lapin(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
-        super(ptVie, degAtt, ptPar, pageAtt, pagePar, pos);
+    /**
+     *
+     */
+    public Lapin() {
+        super();
     }
-
+    
+    /**
+     *
+     * @param l
+     */
     public Lapin(Lapin l) {
         super(l);
     }
 
-    public Lapin() {
-        super();
+    /**
+     *
+     * @param ptVie
+     * @param degAtt
+     * @param ptPar
+     * @param pageAtt
+     * @param distAttMax
+     * @param pagePar
+     * @param pos
+     */
+    public Lapin(int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
+        super(ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePar, pos);
+    }
+    
+    /**
+     *
+     */
+    @Override
+    public void affiche() {
+        System.out.println("Lapin (L)");
+        super.affiche();
+    }
+    
+    @Override
+    public void display() {
+        System.out.print("L");
     }
 }

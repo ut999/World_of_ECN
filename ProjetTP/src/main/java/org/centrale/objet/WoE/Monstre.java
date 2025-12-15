@@ -6,106 +6,44 @@ package org.centrale.objet.WoE;
 import java.util.Random;
 
 /**
- *
+ * Classe représentant un monstre, hérite de Créature
  * @author utaab
  */
-public class Monstre {
-    private int ptVie;
-    private int degAtt;
-    private int ptPar;
-    private int pageAtt;
-    private int pagePar;
-    private Point2D pos;
-
-    public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int pagePar, Point2D pos) {
-        this.ptVie = ptVie;
-        this.degAtt = degAtt;
-        this.ptPar = ptPar;
-        this.pageAtt = pageAtt;
-        this.pagePar = pagePar;
-        this.pos = pos;
-    }
+public abstract class Monstre extends Creature{
     
-    public Monstre(Monstre m) {
-        this.ptVie = m.ptVie;
-        this.degAtt = m.degAtt;
-        this.ptPar = m.ptPar;
-        this.pageAtt = m.pageAtt;
-        this.pagePar = m.pagePar;
-        this.pos = m.pos;
-    }
-    
+    /**
+     *
+     */
     public Monstre() {
-        this.ptVie = 100;
-        this.degAtt = 20;
-        this.ptPar = 1;
-        this.pageAtt = 1;
-        this.pagePar = 1;
-        this.pos = new Point2D(0,10);
-    }
-
-    public int getPtVie() {
-        return ptVie;
-    }
-
-    public void setPtVie(int ptVie) {
-        this.ptVie = ptVie;
-    }
-
-    public int getDegAtt() {
-        return degAtt;
-    }
-
-    public void setDegAtt(int degAtt) {
-        this.degAtt = degAtt;
-    }
-
-    public int getPtPar() {
-        return ptPar;
-    }
-
-    public void setPtPar(int ptPar) {
-        this.ptPar = ptPar;
-    }
-
-    public int getPageAtt() {
-        return pageAtt;
-    }
-
-    public void setPageAtt(int pageAtt) {
-        this.pageAtt = pageAtt;
-    }
-
-    public int getPagePar() {
-        return pagePar;
-    }
-
-    public void setPagePar(int pagePar) {
-        this.pagePar = pagePar;
-    }
-
-    public Point2D getPos() {
-        return pos;
-    }
-
-    public void setPos(Point2D pos) {
-        this.pos = pos;
+        super();
     }
     
-    public void deplace() {
-        Random generateur = new Random();
-        int dx = generateur.nextInt(-1,2);
-        int dy = generateur.nextInt(-1,2);
-        this.pos.translate(dx, dy);
+    /**
+     *
+     * @param m
+     */
+    public Monstre(Monstre m) {
+        super(m);
     }
-    
+
+    /**
+     *
+     * @param ptVie
+     * @param degAtt
+     * @param ptPar
+     * @param pageAtt
+     * @param pagePar
+     * @param pos
+     */
+    public Monstre(int ptVie, int degAtt, int ptPar, int pageAtt, int distAttMax, int pagePar, Point2D pos) {
+        super(ptVie, degAtt, ptPar, pageAtt, distAttMax, pagePar, pos);
+    }
+
+    /**
+     *
+     */
+    @Override
     public void affiche() {
-        System.out.println(
-                "Monstre :\nptVie = " + this.ptVie +
-                "\ndegAtt = " + this.degAtt +
-                "\nptPar = " + this.ptPar +
-                "\npageAtt = " + this.pageAtt +
-                "\npagePar = " + this.pagePar);
-        pos.affiche();
+        super.affiche();
     }
 }
