@@ -11,7 +11,7 @@
         <exec.mainClass>org.centrale.objet.WoE.TestWoE</exec.mainClass>
         <sonar.organization>ut999</sonar.organization>
     </properties>
-    <!-- <build>
+    <build>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -37,8 +37,8 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build> -->
-    <build>
+    </build>
+    <!-- <build>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -60,5 +60,5 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build> -->
 </project>
